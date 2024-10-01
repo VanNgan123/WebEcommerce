@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -10,8 +10,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../../../store/slices/categoriesSlices";
 import { RootState, AppDispatch } from "../../../store/store";
 import { Link } from "react-router-dom";
+import { addCategory } from "../../../store/slices/productSlices";
 
 const Sidebar: React.FC = () => {
+
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCategories());
@@ -19,6 +21,18 @@ const Sidebar: React.FC = () => {
   const categories = useSelector(
     (state: RootState) => state.categoryState.categories
   );
+  const category = useSelector((state: RootState) => state.productState.category);
+
+  const handleCategoryClick = useCallback((categoryId: string) => {
+    const _category = [...category];
+    if(_category.includes(categoryId)){
+      const newCategory = _category.filter((item) => item !== categoryId);
+      dispatch(addCategory(newCategory));
+    }else{
+      _category.push(categoryId);
+      dispatch(addCategory(_category));
+    }},
+    [category, dispatch]);
   return (
     <Box
       sx={{
@@ -38,7 +52,7 @@ const Sidebar: React.FC = () => {
       >
         Browse By
       </Typography>
-      {/* All Products */}
+
       <Link to="/products" style={{ textDecoration: "none" }}>
         <Typography
           variant="body1"
@@ -54,63 +68,6 @@ const Sidebar: React.FC = () => {
           }}
         >
           All Products
-        </Typography>
-      </Link>
-
-      {/* Top Sellers */}
-      <Link to="/products/top-sellers" style={{ textDecoration: "none" }}>
-        <Typography
-          variant="body1"
-          gutterBottom
-          sx={{
-            paddingTop: "10px",
-            fontSize: "16px",
-            color: "black",
-            cursor: "pointer",
-            "&:hover": {
-              textDecoration: "underline",
-            },
-          }}
-        >
-          Top Sellers
-        </Typography>
-      </Link>
-
-      {/* New Products */}
-      <Link to="/products/new-products" style={{ textDecoration: "none" }}>
-        <Typography
-          variant="body1"
-          gutterBottom
-          sx={{
-            paddingTop: "10px",
-            fontSize: "16px",
-            color: "black",
-            cursor: "pointer",
-            "&:hover": {
-              textDecoration: "underline",
-            },
-          }}
-        >
-          New Products
-        </Typography>
-      </Link>
-
-      {/* Sale */}
-      <Link to="/products/sale" style={{ textDecoration: "none" }}>
-        <Typography
-          variant="body1"
-          gutterBottom
-          sx={{
-            paddingTop: "10px",
-            fontSize: "16px",
-            color: "black",
-            cursor: "pointer",
-            "&:hover": {
-              textDecoration: "underline",
-            },
-          }}
-        >
-          Sale
         </Typography>
       </Link>
 
@@ -132,6 +89,7 @@ const Sidebar: React.FC = () => {
             key={category.id}
             control={<Checkbox />}
             label={category.name}
+            onClick={() => handleCategoryClick(String(category.id))}
             sx={{ typography: "body2", fontSize: "14px" }}
           />
         ))}

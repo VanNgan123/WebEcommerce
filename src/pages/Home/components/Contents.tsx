@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../../../store/slices/productSlices";
+import { addCategory, fetchProducts } from "../../../store/slices/productSlices";
 import { ArrowForward } from "@mui/icons-material";
 import {
   Box,
@@ -14,47 +14,48 @@ import {
   Rating,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Contents: React.FC = () => {
+  const dispatch = useDispatch();
   const bycatagories = [
     {
-      id: 1,
+      id: '5',
       title: "Mobile and Wearable Tech",
       image:
         "https://static.wixstatic.com/media/c837a6_5b37c6d9828241aa804f2e0af2334a7c~mv2.jpeg/v1/fill/w_886,h_419,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_auto/templatesdrive_smartphone_--ar_169_--style_raw_--sref_httpss_mj_fae1610e-8d4e-469f-ba15-d7.jpeg", // Đặt URL của ảnh ở đây
       link: "/shop/mobile",
     },
     {
-      id: 2,
+      id: '3',
       title: "Drones and Cameras",
       image:
         "https://static.wixstatic.com/media/c837a6_85bb5adcb80b4125b8a0f5214ef04365~mv2.jpeg/v1/fill/w_886,h_419,fp_0.64_0.67,q_85,usm_0.66_1.00_0.01,enc_auto/templatesdrive_still_camera_yellow_toned_background_--ar_169_--_428ffea2-e625-405e-a844-20.jpeg",
       link: "/shop/cameras",
     },
     {
-      id: 3,
+      id: '4',
       title: "Headphones and Speakers",
       image:
         "https://static.wixstatic.com/media/c837a6_386fa17e5e6d4012bcef90f32b15624d~mv2.jpeg/v1/fill/w_886,h_419,fp_0.60_0.61,q_85,usm_0.66_1.00_0.01,enc_auto/templatesdrive_headphoes_green_toned_background_--ar_169_--styl_3f2a235f-221a-40d3-a420-96.jpeg",
       link: "/shop/headphones",
     },
     {
-      id: 4,
+      id: '2',
       title: "Computers",
       image:
         "https://static.wixstatic.com/media/c837a6_08bb311bff82496da18ec5b8e6e0f864~mv2.jpeg/v1/fill/w_886,h_419,fp_0.50_0.59,q_85,usm_0.66_1.00_0.01,enc_auto/templatesdrive_laptop_--ar_169_--style_raw_--sref_httpss_mj_run_3eb1f332-e4c9-4c29-8986-92.jpeg",
       link: "/shop/computers",
     },
     {
-      id: 5,
+      id: '7',
       title: "Tablets",
       image:
         "https://static.wixstatic.com/media/c837a6_f812686c1dc144ae890d6ac29193522d~mv2.jpeg/v1/fill/w_886,h_419,fp_0.48_0.51,q_85,usm_0.66_1.00_0.01,enc_auto/templatesdrive_tablet_--ar_169_--style_raw_--sref_httpss_mj_run_edc85ecf-ad3a-4a7c-9b04-11.jpeg",
       link: "/shop/tablets",
     },
     {
-      id: 6,
+      id:'8',
       title: "TV and Home Cinema",
       image:
         "https://static.wixstatic.com/media/c837a6_b34b9247aa3a44dfa1fae48f7699bc39~mv2.jpeg/v1/fill/w_886,h_419,fp_0.76_0.59,q_85,usm_0.66_1.00_0.01,enc_auto/templatesdrive_projector_--ar_169_--style_raw_--sref_httpss_mj__5db03932-2daf-40b9-8e02-b1.jpeg",
@@ -77,16 +78,32 @@ const Contents: React.FC = () => {
       link: "/shop/cameras",
     },
   ];
-
-  const dispatch = useDispatch();
+  const productList = useSelector((state: any) => state.productState.products);
+  const products =
+    productList?.filter((product: any) => product?.categoryId === 6) || [];
+  const productTop =
+    productList?.filter((product: any) => product?.categoryId === 1) || [];
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    const payload = {
+      _page: 1,
+      _limit: 12,
+      category:[],
+    }
+    dispatch(fetchProducts(payload));
   }, [dispatch]);
 
-  const productList = useSelector((state: any) => state.productState.products);
-  const products = productList?.filter((product: any) => product?.categoryId === 6) || [];
-const productTop = productList?.filter((product: any) => product?.categoryId === 1) || [];
+  const navigate = useNavigate();
+
+
+
+  const handleCategoryClick = (categoryId: string) => {
+    try {
+      navigate(`/products/category/${categoryId}`);
+    } catch (error) {
+      console.log("🚀 ~ handleCategoryClick ~ error:", error)
+    }
+  }
   return (
     <>
       <Box
@@ -105,7 +122,6 @@ const productTop = productList?.filter((product: any) => product?.categoryId ===
             margin: 0,
             paddingLeft: "40px",
             fontFamily: "monospace",
-            
           }}
         >
           New Products
@@ -123,9 +139,15 @@ const productTop = productList?.filter((product: any) => product?.categoryId ===
         >
           {products.map((product: any) => (
             <Grid item key={product.id}>
-              <Card style={{ width: 333 }} sx={{"&:hover": { transform: "scale(1.05)" }, transition: "transform 0.6s"}}>
+              <Card
+                style={{ width: 333 }}
+                sx={{
+                  "&:hover": { transform: "scale(1.05)" },
+                  transition: "transform 0.6s",
+                }}
+              >
                 <Link
-                  to={`/product/${product.id}`}
+                  to={`/product/detail/${product.id}`}
                   key={product.id}
                   style={{ textDecoration: "none", color: "black" }}
                 >
@@ -138,7 +160,9 @@ const productTop = productList?.filter((product: any) => product?.categoryId ===
                     sx={{ objectFit: "cover", width: 333, height: 400 }}
                   />
                   <CardContent sx={{ textAlign: "left" }}>
-                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>{product.name}</Typography>
+                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                      {product.name}
+                    </Typography>
                     <Typography variant="body2" mt={1} color="textSecondary">
                       Pice: {product.price} $
                     </Typography>
@@ -176,7 +200,7 @@ const productTop = productList?.filter((product: any) => product?.categoryId ===
         </Grid>
       </Box>
       {/* phần nội dung  bycatagories */}
-      <Box sx={{ padding: "0 40px",marginBottom:"40px" }}>
+      <Box sx={{ padding: "0 40px", marginBottom: "40px" }}>
         <Typography
           variant="h4"
           gutterBottom
@@ -210,7 +234,11 @@ const productTop = productList?.filter((product: any) => product?.categoryId ===
                   height="300"
                   image={bycatagories.image} // Đường dẫn ảnh
                   alt={bycatagories.title}
-                  sx={{ objectFit: "cover", transition: "filter 0.3s ease" ,filter: "brightness(1.5)"  }}
+                  sx={{
+                    objectFit: "cover",
+                    transition: "filter 0.3s ease",
+                    filter: "brightness(1.5)",
+                  }}
                 />
                 <CardContent
                   sx={{
@@ -239,8 +267,7 @@ const productTop = productList?.filter((product: any) => product?.categoryId ===
                   <Button
                     variant="contained"
                     color="primary"
-                    component={Link} // Link khi bấm nút sẽ chuyển trang
-                    to={bycatagories.link} // Link chuyển trang
+                    onClick={() => handleCategoryClick(bycatagories.id)}
                     sx={{
                       color: "white",
                       backgroundColor: "#0066CC",
@@ -257,12 +284,7 @@ const productTop = productList?.filter((product: any) => product?.categoryId ===
           ))}
         </Grid>
       </Box>
-      <Box
-        component="section"
-        py={5}
-        textAlign="center"
-        mt={5}
-      >
+      <Box component="section" py={5} textAlign="center" mt={5}>
         <Typography
           variant="h4"
           gutterBottom
@@ -272,10 +294,9 @@ const productTop = productList?.filter((product: any) => product?.categoryId ===
             margin: 0,
             paddingLeft: "40px",
             fontFamily: "monospace",
-            
           }}
         >
-          Top Seller 
+          Top Seller
         </Typography>
         <Grid
           container
@@ -290,9 +311,15 @@ const productTop = productList?.filter((product: any) => product?.categoryId ===
         >
           {productTop.map((product: any) => (
             <Grid item key={product.id}>
-              <Card style={{ width: 333 }} sx={{"&:hover": { transform: "scale(1.05)" }, transition: "transform 0.6s"}}>
+              <Card
+                style={{ width: 333 }}
+                sx={{
+                  "&:hover": { transform: "scale(1.05)" },
+                  transition: "transform 0.6s",
+                }}
+              >
                 <Link
-                  to={`/product/${product.id}`}
+                  to={`/product/detail/${product.id}`}
                   key={product.id}
                   style={{ textDecoration: "none", color: "black" }}
                 >
@@ -302,10 +329,12 @@ const productTop = productList?.filter((product: any) => product?.categoryId ===
                     image={product.image} // Make sure `product.image` is a valid URL
                     alt={product.name}
                     style={{ objectFit: "cover" }}
-                    sx={{ objectFit: "cover", width: 333, height: 400  }}
+                    sx={{ objectFit: "cover", width: 333, height: 400 }}
                   />
                   <CardContent sx={{ textAlign: "left" }}>
-                    <Typography variant="h6" sx={{ fontWeight: "bold" }} >{product.name}</Typography>
+                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                      {product.name}
+                    </Typography>
                     <Typography variant="body2" mt={1} color="textSecondary">
                       Pice: {product.price} $
                     </Typography>
@@ -329,7 +358,6 @@ const productTop = productList?.filter((product: any) => product?.categoryId ===
             to="/products"
             variant="outlined"
             sx={{
-              
               margin: "20px 0 0 30px",
               width: "300px",
               height: "40px",
@@ -344,9 +372,8 @@ const productTop = productList?.filter((product: any) => product?.categoryId ===
         </Grid>
       </Box>
 
-
       {/* phần nội dung  bycatagories */}
-      <Box sx={{ padding: "0 40px",marginBottom:"40px" }}>
+      <Box sx={{ padding: "0 40px", marginBottom: "40px" }}>
         <Typography
           variant="h4"
           gutterBottom
@@ -380,7 +407,11 @@ const productTop = productList?.filter((product: any) => product?.categoryId ===
                   height="400"
                   image={Spotlight.image} // Đường dẫn ảnh
                   alt={Spotlight.title}
-                  sx={{ objectFit: "cover", transition: "filter 0.3s ease" ,filter: "brightness(1.5)"  }}
+                  sx={{
+                    objectFit: "cover",
+                    transition: "filter 0.3s ease",
+                    filter: "brightness(1.5)",
+                  }}
                 />
                 <CardContent
                   sx={{

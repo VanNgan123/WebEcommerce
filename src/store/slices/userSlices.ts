@@ -4,11 +4,13 @@ import axiosUser from "../../api/axiosUser";
 
 type User = {
   id: number;
-  name: string;
+  fullname: string;
+  username: string;
   email: string;
   password: string;
-  avatar: string;
+  role: string;
 };
+
 
 export const fetchUser: any = createAsyncThunk(
   "user/fetchUser",

@@ -6,11 +6,11 @@ type categories = {
     name: string;
 };
 
-export const fetchCategories = createAsyncThunk(
+export const fetchCategories = createAsyncThunk<any, void>(
   "categories/fetchCategories",
   async (_, thunkAPI) => {
     try {
-      const response:any[] = await axiosProduct.get("/categories?_limit=8");
+      const response: categories[] = await axiosProduct.get("/categories");
       return response;
     } catch (error: any) {
       return error;
@@ -18,7 +18,7 @@ export const fetchCategories = createAsyncThunk(
   }
 );
 const initialValue = {
-  categories: [] as categories[],  // categories: [] as categories[],  
+  categories: [] as categories[], 
   loading: false,
 };
 

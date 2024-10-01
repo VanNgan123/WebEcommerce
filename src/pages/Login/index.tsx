@@ -14,6 +14,16 @@ import {  useNavigate } from "react-router-dom";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const isLoggedIn = localStorage.getItem("isLogin") === "true"; // Hoặc dùng Redux
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/"); // Chuyển hướng đến trang chính nếu đã đăng nhập
+    }
+  }, [isLoggedIn, navigate]);
+
+
   const formikLogin = useFormik({
     initialValues: {
       email: "",
@@ -30,10 +40,16 @@ const Login = () => {
       const result = await logninRequest(values);
       console.log("🚀 ~ onSubmit:async ~ result :", result )
       if(!result){
-        alert("Tài khoản hoặc mật khách hợp lệ");
+        localStorage.setItem("isLogin", "false");
+        alert("Tài khoản hoặc mật khách không hợp lệ");
         return;
       }
-      dispatch(login(values));
+      const { id, email, token,role } = result;
+      dispatch(login({ id, email, token, role }));
+      localStorage.setItem('idUser', id);
+      localStorage.setItem("isLogin", "true"); // Store isLogin as "true" string
+      localStorage.setItem("userRole", role);
+
       navigate("/");
     },
   });
@@ -119,73 +135,3 @@ const Login = () => {
 
 export default Login;
 
-// import React from "react";
-// import { Button, TextField, Typography } from "@mui/material";
-// import { useFormik } from "formik";
-// import * as Yup from "yup";
-// import { useDispatch, useSelector } from "react-redux";
-// import { loginUser } from "../../store/slices/userSlices";
-// import { AppDispatch, RootState } from "../../store/store"; // Import RootState nếu cần
-
-// const Login = () => {
-//   const dispatch = useDispatch<AppDispatch>();
-//   const userStatus = useSelector((state: RootState) => state.user.status);
-//   const loginError = useSelector((state: RootState) => state.user.error);
-
-//   const formikLogin = useFormik({
-//     initialValues: {
-//       email: "",
-//       password: "",
-//     },
-//     validationSchema: Yup.object({
-//       email: Yup.string()
-//         .email("Email không hợp lệ")
-//         .required("Vui lòng nhập email"),
-//       password: Yup.string().required("Vui lòng nhập mật khẩu"),
-//     }),
-//     onSubmit: (values: any) => {
-//       dispatch(loginUser(values)); // Gửi thông tin đăng nhập
-//     },
-//   });
-
-//   return (
-//     <div className="login-container">
-//       <form onSubmit={formikLogin.handleSubmit}>
-//         <h2>Đăng Nhập</h2>
-//         <TextField
-//           fullWidth
-//           id="email"
-//           name="email"
-//           label="Email"
-//           margin="normal"
-//           onChange={formikLogin.handleChange}
-//           onBlur={formikLogin.handleBlur}
-//           value={formikLogin.values.email}
-//           error={formikLogin.touched.email && Boolean(formikLogin.errors.email)}
-//           helperText={formikLogin.touched.email && formikLogin.errors.email}
-//         />
-//         <TextField
-//           fullWidth
-//           id="password"
-//           name="password"
-//           label="Password"
-//           type="password"
-//           margin="normal"
-//           onChange={formikLogin.handleChange}
-//           onBlur={formikLogin.handleBlur}
-//           value={formikLogin.values.password}
-//           error={formikLogin.touched.password && Boolean(formikLogin.errors.password)}
-//           helperText={formikLogin.touched.password && formikLogin.errors.password}
-//         />
-//         <Button variant="contained" type="submit">
-//           Đăng Nhập
-//         </Button>
-
-//         {userStatus === "loading" && <p>Đang xử lý...</p>}
-//         {userStatus === "failed" && <p style={{ color: "red" }}>{loginError}</p>}
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default Login;

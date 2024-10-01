@@ -11,19 +11,22 @@ import {
   CircularProgress,
   IconButton,
 } from "@mui/material";
-import RemoveIcon from '@mui/icons-material/Remove';
-import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Header from "../../layout/Header";
 import { RootState } from "../../store/store";
 import { fetchProductById } from "../../store/slices/productDetailSlice";
 import Footer from "../../layout/Footer";
+import { cartsRequest } from "../../api/auth/auth.cartRequest";
+
 
 const ProductDetail: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState<string>(""); // State for selected color
   const [quantity, setQuantity] = useState<number>(1); // State for quantity
+  const navigate = useNavigate();
   const handleColorSelect = (color: string) => {
     setSelectedColor(color);
   };
@@ -36,14 +39,12 @@ const ProductDetail: React.FC = () => {
     }
   };
 
-
   const { id } = useParams<{ id: string }>();
   const dispatch: any = useDispatch();
   const productDetail = useSelector(
     (state: RootState) => state.productDetailState.productDetail
   );
   const loading = useSelector((state: RootState) => state.productState.loading);
-
 
   useEffect(() => {
     if (id) {
@@ -58,6 +59,31 @@ const ProductDetail: React.FC = () => {
   if (!productDetail) {
     return <div>No product found</div>;
   }
+  const handleAddCart = () => {
+    const userId = localStorage.getItem("idUser"); // Retrieve userId from localStorage
+    if (!userId) {
+      navigate("/login");
+      return;
+    }
+    const dataCart = {
+      productId: productDetail.id,
+      quantity: quantity,
+      userId: String(userId),
+      color: selectedColor,
+    };
+    try{
+      const result = cartsRequest(dataCart as any);
+      if(result) {
+        console.log("🚀 ~ handleAddCart ~ result:", result)
+        navigate("/cart");
+      }else{
+        alert("Thêm sản phẩm vào giỏ hàng thất bại");
+      }
+    }catch(error){
+      console.log(error);
+    }
+    
+  };
 
   return (
     <>
@@ -66,7 +92,6 @@ const ProductDetail: React.FC = () => {
         <Grid
           container
           spacing={2}
-
           justifyContent="center"
           sx={{ paddingTop: "30px" }}
         >
@@ -80,7 +105,7 @@ const ProductDetail: React.FC = () => {
             >
               <CardMedia
                 component="img"
-                height="550"
+                height="400"
                 image={productDetail.image}
                 alt={productDetail.name}
                 sx={{ objectFit: "contain", maxWidth: "100%", height: "300" }}
@@ -94,7 +119,7 @@ const ProductDetail: React.FC = () => {
               sx={{
                 paddingTop: "50px ",
                 // font: "var(--font_15)",
-                
+
                 fontSize: "24px",
 
                 color: "rgb(var(--color_15))",
@@ -117,20 +142,25 @@ const ProductDetail: React.FC = () => {
               variant="body2"
               mt={2}
               color="textSecondary"
-              fontSize={{fontSize: "18px"}}
+              fontSize={{ fontSize: "18px" }}
             >
               Pice: {productDetail.price} $
             </Typography>
-            <Typography variant="caption" color="textSecondary" mt={3} sx={{fontSize: "14px"}}>
+            <Typography
+              variant="caption"
+              color="textSecondary"
+              mt={3}
+              sx={{ fontSize: "14px" }}
+            >
               {productDetail.description}
             </Typography>
 
-              {/* Color Selection */}
+            {/* Color Selection */}
             <Typography variant="subtitle1" mt={2}>
               Color:
             </Typography>
             <Grid container spacing={1}>
-              {["#003481", "#800080", "#00FF00"].map((color) => (
+              {["Silver", "Black", "Gold"].map((color) => (
                 <Grid item key={color}>
                   <Button
                     onClick={() => handleColorSelect(color)}
@@ -138,7 +168,8 @@ const ProductDetail: React.FC = () => {
                       backgroundColor: color,
                       width: 40,
                       height: 40,
-                      border: selectedColor === color ? "2px solid black" : "none",
+                      border:
+                        selectedColor === color ? "2px solid black" : "none",
                     }}
                   />
                 </Grid>
@@ -161,14 +192,19 @@ const ProductDetail: React.FC = () => {
               </IconButton>
             </Box>
 
-
-
             <Grid container spacing={2} sx={{ marginTop: 2 }}>
               <Grid item>
                 <Button
+                  onClick={handleAddCart}
                   variant="outlined"
                   color="primary"
-                  sx={{ borderColor: "primary.main",border: "1px solid black" ,color: "black" ,padding: "7px 90px","&:hover":{backgroundColor:"black",color:"white"}    }}
+                  sx={{
+                    borderColor: "primary.main",
+                    border: "1px solid black",
+                    color: "black",
+                    padding: "7px 90px",
+                    "&:hover": { backgroundColor: "black", color: "white" },
+                  }}
                 >
                   Add to Cart
                 </Button>
@@ -176,7 +212,12 @@ const ProductDetail: React.FC = () => {
               <Grid item>
                 <Button
                   variant="contained"
-                  sx={{ backgroundColor: "black", color: "white", padding: "7px 90px"  ,"&:hover": { color: "Black", background: "white"} }}
+                  sx={{
+                    backgroundColor: "black",
+                    color: "white",
+                    padding: "7px 90px",
+                    "&:hover": { color: "Black", background: "white" },
+                  }}
                 >
                   Buy Now
                 </Button>

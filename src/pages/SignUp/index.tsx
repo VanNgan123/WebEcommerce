@@ -1,5 +1,5 @@
 import { Button, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import signUpImg from "../../assets/signup.jpeg";
@@ -13,6 +13,15 @@ import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const navigate = useNavigate();
+
+
+  const isLoggedIn = localStorage.getItem("isLogin") === "true"; // Hoặc dùng Redux
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/"); // Chuyển hướng đến trang chính nếu đã đăng nhập
+    }
+  }, [isLoggedIn, navigate]);
   const formikSignUp = useFormik({
     initialValues: {
       username: "",

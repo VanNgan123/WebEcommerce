@@ -18,34 +18,40 @@ import {
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../../store/slices/categoriesSlices";
-import Sidebar from "./components/siderbar";
+
 import { fetchProducts } from "../../store/slices/productSlices";
 import { ArrowForward } from "@mui/icons-material";
 import Header from "../../layout/Header";
 import Footer from "../../layout/Footer";
 import { RootState } from "../../store/store";
 
-const Products = () => {
+const ByCategoryProducts = () => {
+  const { categoryId } = useParams();
+  console.log("🚀 ~ Products ~ categoryId:", categoryId);
   const [page, setPage] = useState(1);
   const limit = 12;
   const productList = useSelector(
     (state: RootState) => state.productState.products
   );
-  const category = useSelector(
-    (state: RootState) => state.productState.category
-  );
   const loading = useSelector((state: RootState) => state.productState.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const payload = {
-      category: category,
-      _page: page,
-      _limit: limit,
-    };
-    dispatch(fetchProducts(payload));
-    console.log("🚀 ~ useEffect ~ payload:", payload);
-  }, [dispatch,page , category]);
+    if(categoryId){
+      const payload = {
+        _categoryId: categoryId,
+        _page: page,
+        _limit: limit,
+      };
+      dispatch(fetchProducts(payload));
+    }
+  }, [dispatch,page ,categoryId]);
+   
+  const categories : any = useSelector((state: RootState) => state.categoryState.categories);
+  if(categoryId===categories.id){
+    const title  = categories.name;
+  }
+  const panagation = productList.length > 12;
 
   return (
     <>
@@ -59,12 +65,9 @@ const Products = () => {
         }}
         className="allProduct"
       >
-        All Products
+        all 
       </h2>
-      <Grid container spacing={2} mt={0} sx={{ marginBottom: "60px" }}>
-        <Grid item xs={2}>
-          <Sidebar />
-        </Grid>
+      <Grid container spacing={2} mt={0} sx={{ marginBottom: "60px" }} justifyContent={"center"}>
         <Grid item xs={10}>
           <Box
             component="section"
@@ -81,11 +84,10 @@ const Products = () => {
                 container
                 spacing={4}
                 sx={{
-                  justifyContent: "center",
+
                   gap: "10px",
                   marginTop: "0",
                 }}
-                justifyContent="center"
               >
                 {productList.map((product: any) => (
                   <Grid item xs={2.9} key={product.id}>
@@ -138,28 +140,30 @@ const Products = () => {
               </Grid>
             )}
           </Box>
-          <Stack spacing={2} sx={{ marginTop: "20px",alignItems:"center" }}>
-            <Pagination
-              page={page}
-              count={6}
-              variant="outlined"
-              shape="rounded"
-              onChange={(event, value) => setPage(value)}
-              sx={{
-                "& .MuiPaginationItem-root": {
-                  height: "30px",
-                  borderRadius: 0,
-                  border: "1px solid black",
-                  backgroundColor: "white",
-                  color: "black",
-                  "&:hover": {
-                    backgroundColor: "black",
-                    color: "white",
+          {panagation && (
+            <Stack spacing={2} sx={{ marginTop: "20px", alignItems: "center" }}>
+              <Pagination
+                page={page}
+                count={6} // Số trang cần tính dựa trên tổng số sản phẩm
+                variant="outlined"
+                shape="rounded"
+                onChange={(event, value) => setPage(value)}
+                sx={{
+                  "& .MuiPaginationItem-root": {
+                    height: "30px",
+                    borderRadius: 0,
+                    border: "1px solid black",
+                    backgroundColor: "white",
+                    color: "black",
+                    "&:hover": {
+                      backgroundColor: "black",
+                      color: "white",
+                    },
                   },
-                },
-              }}
-            />
-          </Stack>
+                }}
+              />
+            </Stack>
+          )}
         </Grid>
       </Grid>
 
@@ -168,4 +172,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ByCategoryProducts;
