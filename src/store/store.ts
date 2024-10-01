@@ -7,6 +7,7 @@ import byCategorySlices from "./slices/byCategorySlices";
 import CartSlice from "./slices/cartSlices";
 import orderSlice from "./slices/orderSlice";
 import orderHistorySlice from "./slices/orderHistorySlice";
+import productSeachSlices from "./slices/productSeachSlices";
 
 
 const store = configureStore({
@@ -19,6 +20,7 @@ const store = configureStore({
     cartState: CartSlice,
     orderState: orderSlice,
     orderHistoryState: orderHistorySlice,
+    productSearchState: productSeachSlices,
   },
 });
 

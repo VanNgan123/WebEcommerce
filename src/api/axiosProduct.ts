@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosProduct = axios.create({
-   baseURL: "https://api-project-plum-six.vercel.app",
+   baseURL: "https://backend-stj2.onrender.com",//https://backend-stj2.onrender.com
    timeout: 10000,
 });
 
