@@ -93,7 +93,7 @@ const Buy = () => {
       <Header />
 
       <form onSubmit={formik.handleSubmit}>
-        <Grid container spacing={3} sx={{ marginTop: "50px", padding: "20px" }}>
+        <Grid container spacing={3} sx={{ marginTop: "120px", padding: "20px" }}>
           {/* Cột trái: Thông tin giao hàng */}
           <Grid item xs={12} md={7}>
             <Paper sx={{ padding: "20px" }}>

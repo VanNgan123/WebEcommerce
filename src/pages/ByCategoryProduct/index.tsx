@@ -59,13 +59,13 @@ const ByCategoryProducts = () => {
       <h2
         style={{
           textAlign: "center",
-          marginTop: "120px",
+          marginTop: "140px",
           fontFamily: "monospace",
           fontWeight: "bold",
         }}
         className="allProduct"
       >
-        all 
+        By Category
       </h2>
       <Grid container spacing={2} mt={0} sx={{ marginBottom: "60px" }} justifyContent={"center"}>
         <Grid item xs={10}>

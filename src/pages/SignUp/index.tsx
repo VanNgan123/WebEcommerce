@@ -9,6 +9,7 @@ import Navbar from "../../layout/Navbar";
 import { signupRequest } from "../../api/auth/auth.requestSignuo";
 import axiosUser from "../../api/axiosUser";
 import { useNavigate } from "react-router-dom";
+import Footer from "../../layout/Footer";
 
 
 const SignUp = () => {
@@ -183,6 +184,7 @@ const SignUp = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

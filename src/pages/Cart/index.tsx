@@ -54,7 +54,7 @@ const Cart = () => {
         variant="h5"
         gutterBottom
         sx={{
-          marginTop: "100px",
+          marginTop: "150px",
           textAlign: "left",
           maxWidth: "90%",
           mx: "auto",
@@ -70,6 +70,7 @@ const Cart = () => {
           maxWidth: "90%",
           mx: "auto",
           mt: 2,
+          mb: 2,
           border: "1px solid gray",
           boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
         }}
@@ -169,9 +170,11 @@ const Cart = () => {
                         </IconButton>
                       </Box>
                     </TableCell>
-                    <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-                      {product.color || "N/A"}{" "}
-                    </Typography>
+                    <TableCell>
+                      <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                        {product.color || "N/A"}
+                      </Typography>
+                    </TableCell>
                     <TableCell>
                       <Button
                         to="/buy"
@@ -205,6 +208,7 @@ const Cart = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Footer />
     </>
   );
 };

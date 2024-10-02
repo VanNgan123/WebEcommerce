@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const Banner=()=>{
     return (
-        <Box mb={5} component="section" sx={{paddingTop:'66px', width:'100%' ,margin:'0px auto',boxSizing:'border-box'}}>
+        <Box mb={5} component="section" sx={{paddingTop:'123px', width:'100%' ,margin:'0px auto',boxSizing:'border-box'}}>
         <Carousel style={{ width: '100%', overflow: 'hidden' }}>
           <Carousel.Item>
             <img

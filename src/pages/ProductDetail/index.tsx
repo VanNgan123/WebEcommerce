@@ -22,7 +22,6 @@ import { fetchProductById } from "../../store/slices/productDetailSlice";
 import Footer from "../../layout/Footer";
 import { cartsRequest } from "../../api/auth/auth.cartRequest";
 
-
 const ProductDetail: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState<string>(""); // State for selected color
   const [quantity, setQuantity] = useState<number>(1); // State for quantity
@@ -71,18 +70,17 @@ const ProductDetail: React.FC = () => {
       userId: String(userId),
       color: selectedColor,
     };
-    try{
+    try {
       const result = cartsRequest(dataCart as any);
-      if(result) {
-        console.log("🚀 ~ handleAddCart ~ result:", result)
+      if (result) {
+        console.log("🚀 ~ handleAddCart ~ result:", result);
         navigate("/cart");
-      }else{
+      } else {
         alert("Thêm sản phẩm vào giỏ hàng thất bại");
       }
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-    
   };
 
   return (
@@ -93,7 +91,7 @@ const ProductDetail: React.FC = () => {
           container
           spacing={2}
           justifyContent="center"
-          sx={{ paddingTop: "30px" }}
+          sx={{ paddingTop: "120px" }}
         >
           <Grid item xs={12} sm={6} key={productDetail.id}>
             <Card
@@ -117,11 +115,8 @@ const ProductDetail: React.FC = () => {
             <Typography
               variant="h3"
               sx={{
-                paddingTop: "50px ",
-                // font: "var(--font_15)",
 
                 fontSize: "24px",
-
                 color: "rgb(var(--color_15))",
                 letterSpacing: "0.05em",
               }}
