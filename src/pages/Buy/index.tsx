@@ -169,7 +169,7 @@ const Buy = () => {
                 variant="h6"
                 sx={{ fontWeight: "bold", marginBottom: 2 }}
               >
-                Tóm tắt giỏ hàng
+                Cart Summary
               </Typography>
               {carts.map((cart: any) => (
                 <Box
@@ -196,7 +196,7 @@ const Buy = () => {
                     <Typography variant="body1">{cart.product.name}</Typography>
                   </Box>
                   <Typography variant="body1">
-                    {cart.quantity} x {cart.product.price.toFixed(2)}₫
+                    {cart.quantity} x {cart.product.price.toFixed(2)}$
                   </Typography>
                 </Box>
               ))}

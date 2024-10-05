@@ -75,6 +75,7 @@ const ProductDetail: React.FC = () => {
       if (result) {
         console.log("🚀 ~ handleAddCart ~ result:", result);
         navigate("/cart");
+
       } else {
         alert("Thêm sản phẩm vào giỏ hàng thất bại");
       }

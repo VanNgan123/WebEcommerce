@@ -64,7 +64,7 @@ const Header = () => {
   }, [search, dispatch]);
 
   return (
-    <AppBar position="fixed" sx={{ backgroundColor: "#fff", zIndex: 10 }}>
+    <AppBar position="fixed" sx={{ backgroundColor: "#092441", zIndex: 10 }}>
       <Toolbar
         sx={{
           justifyContent: "space-between",
@@ -81,7 +81,7 @@ const Header = () => {
               fontFamily: "YourCustomFont, sans-serif",
               fontWeight: "bold",
               fontSize: "24px",
-              color: "black",
+              color: "white",
               marginLeft: "350px",
             }}
           >
@@ -101,8 +101,8 @@ const Header = () => {
               }
             }}
             sx={{
-              borderBottom: "1px solid black",
-              color: "black",
+              borderBottom: "1px solid white",
+              color: "white",
               padding: "0 10px",
               width: "200px",
               marginRight: "10px",
@@ -111,7 +111,7 @@ const Header = () => {
           <IconButton
             color="inherit"
             onClick={handleSearchSubmit}
-            sx={{ color: "black", "&:hover": { backgroundColor: "#f0f0f0" } }}
+            sx={{ color: "white", "&:hover": { backgroundColor: "#f0f0f0" } }}
           >
             <Search />
           </IconButton>
@@ -124,7 +124,7 @@ const Header = () => {
                     component={Link}
                     to="/profile"
                     sx={{
-                      color: "black",
+                      color: "white",
                       "&:hover": { backgroundColor: "#898282" },
                     }}
                   >
@@ -136,7 +136,7 @@ const Header = () => {
                     color="inherit"
                     onClick={handleLogout}
                     sx={{
-                      color: "black",
+                      color: "white",
                       "&:hover": { backgroundColor: "#898282" },
                     }}
                   >
@@ -150,7 +150,7 @@ const Header = () => {
               color="inherit"
               component={Link}
               to="/login"
-              sx={{ color: "black", "&:hover": { backgroundColor: "#f0f0f0" } }}
+              sx={{ color: "white", "&:hover": { backgroundColor: "#f0f0f0" } }}
             >
               Log In
             </Button>
@@ -159,7 +159,7 @@ const Header = () => {
             color="inherit"
             component={Link}
             to="/cart"
-            sx={{ color: "black", "&:hover": { backgroundColor: "#f0f0f0" } }}
+            sx={{ color: "white", "&:hover": { backgroundColor: "#f0f0f0" } }}
           >
             <ShoppingCart sx={{ fontSize: "24px" }} />
           </IconButton>
