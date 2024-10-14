@@ -16,12 +16,12 @@ import { fetchOrderHistory } from "../../store/slices/orderHistorySlice";
 import { AppDispatch } from "../../store/store";
 import Header from "../../layout/Header";
 import Footer from "../../layout/Footer";
+import moment from "moment";
 
 const OrderHistoryPage = () => {
   const dispatch: AppDispatch = useDispatch();
   const userId = localStorage.getItem("idUser");
-  const orders =
-    useSelector((state: any) => state.orderHistoryState.orders) || [];
+  const orders =useSelector((state: any) => state.orderHistoryState.orders) || [];
   const loading = useSelector((state: any) => state.orderHistoryState.loading);
 
   useEffect(() => {
@@ -43,14 +43,14 @@ const OrderHistoryPage = () => {
         sx={{
           flexGrow: 1, // Đẩy footer xuống dưới
           padding: "20px",
-          marginTop: "120px",
-          backgroundColor: "#f3f4f6",
+          marginTop: "109px",
+
           borderRadius: "8px",
         }}
       >
         <Typography
           variant="h4"
-          sx={{ marginBottom: "20px", fontWeight: "bold", color: "#1976d2" }}
+          sx={{ marginBottom: "20px", fontWeight: "bold", color: "black" }}
         >
           Lịch sử đơn hàng
         </Typography>
@@ -68,38 +68,38 @@ const OrderHistoryPage = () => {
                   <TableCell
                     sx={{ fontWeight: "bold", color: "white", width: "10%" }}
                   >
-                    Mã đơn hàng
+                    Code Order
                   </TableCell>
                   <TableCell
                     align="left"
                     sx={{ fontWeight: "bold", color: "white" }}
                   >
-                    Thông tin người dùng
+                    User Information
                   </TableCell>
                   <TableCell
                     align="left"
                     sx={{ fontWeight: "bold", color: "white" }}
                   >
-                    Sản phẩm
+                    Products 
                   </TableCell>
                   <TableCell
                     align="left"
                     sx={{ fontWeight: "bold", color: "white" }}
                   >
-                    Ngày đặt
+                    Date
                   </TableCell>
                   <TableCell
                     align="left"
                     sx={{ fontWeight: "bold", color: "white" }}
                   >
-                    Tổng tiền
+                    Total Amount
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableRow>
                 <TableCell colSpan={5} align="center">
                   <Typography variant="h6" sx={{ color: "#ff1744" }}>
-                    Không có lịch sử đơn hàng.
+                    There is no order history.
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -114,35 +114,35 @@ const OrderHistoryPage = () => {
           >
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
-                <TableRow sx={{ backgroundColor: "#1976d2", color: "white" }}>
+                <TableRow sx={{ backgroundColor: "#092441", color: "white" }}>
                   <TableCell
                     sx={{ fontWeight: "bold", color: "white", width: "10%" }}
                   >
-                    Mã đơn hàng
+                    Code Order
                   </TableCell>
                   <TableCell
                     align="left"
                     sx={{ fontWeight: "bold", color: "white" }}
                   >
-                    Thông tin người dùng
+                    User Information
                   </TableCell>
                   <TableCell
                     align="left"
                     sx={{ fontWeight: "bold", color: "white" }}
                   >
-                    Sản phẩm
+                    Products
                   </TableCell>
                   <TableCell
                     align="left"
                     sx={{ fontWeight: "bold", color: "white" }}
                   >
-                    Ngày đặt
+                    Date
                   </TableCell>
                   <TableCell
                     align="left"
                     sx={{ fontWeight: "bold", color: "white" }}
                   >
-                    Tổng tiền
+                    Total Amount
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -167,7 +167,7 @@ const OrderHistoryPage = () => {
                       Email: {order.email} <br />
                       Phone: {order.phone} <br />
                       Address: {order.address} <br />
-                      Note: {order.note}
+                     {order.note?`Note: {order.note}: `: 'Note: none'} 
                     </TableCell>
 
                     <TableCell align="left">
@@ -180,7 +180,6 @@ const OrderHistoryPage = () => {
                             marginBottom: "8px",
                             padding: "8px",
                             border: "1px solid #ccc",
-                            borderRadius: "4px",
                           }}
                         >
                           {product.img && (
@@ -196,17 +195,20 @@ const OrderHistoryPage = () => {
                               }}
                             />
                           )}
+                          <Typography sx={{ marginRight: "8px" }}>
+                            - Name Product: {product.nameProduct}
+                          </Typography>
                           <Typography>
-                            - Số lượng: {product.quantity}
+                            - Quantity: {product.quantity}
                           </Typography>
                         </Box>
                       ))}
                     </TableCell>
                     <TableCell align="left">
-                      {order.date || "Chưa có"}
+                      {order.date? moment(new Date(order.date)).format("DD/MM/YYYY HH:mm:ss") : "none"}
                     </TableCell>
                     <TableCell align="left">
-                      {order.totalAmount.toFixed(2)}₫
+                    ${order.totalAmount.toFixed(2)}
                     </TableCell>
                   </TableRow>
                 ))}

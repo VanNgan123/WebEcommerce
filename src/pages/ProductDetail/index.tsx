@@ -21,6 +21,8 @@ import { RootState } from "../../store/store";
 import { fetchProductById } from "../../store/slices/productDetailSlice";
 import Footer from "../../layout/Footer";
 import { cartsRequest } from "../../api/auth/auth.cartRequest";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { ShoppingCart } from "@mui/icons-material";
 
 const ProductDetail: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState<string>(""); // State for selected color
@@ -75,7 +77,6 @@ const ProductDetail: React.FC = () => {
       if (result) {
         console.log("🚀 ~ handleAddCart ~ result:", result);
         navigate("/cart");
-
       } else {
         alert("Thêm sản phẩm vào giỏ hàng thất bại");
       }
@@ -92,7 +93,7 @@ const ProductDetail: React.FC = () => {
           container
           spacing={2}
           justifyContent="center"
-          sx={{ paddingTop: "120px" }}
+          sx={{ paddingTop: "109px" }}
         >
           <Grid item xs={12} sm={6} key={productDetail.id}>
             <Card
@@ -107,7 +108,7 @@ const ProductDetail: React.FC = () => {
                 height="400"
                 image={productDetail.image}
                 alt={productDetail.name}
-                sx={{ objectFit: "contain", maxWidth: "100%", height: "300" }}
+                sx={{ objectFit: "contain", maxWidth: "100%", height: "400" }}
               />
             </Card>
           </Grid>
@@ -116,7 +117,6 @@ const ProductDetail: React.FC = () => {
             <Typography
               variant="h3"
               sx={{
-
                 fontSize: "24px",
                 color: "rgb(var(--color_15))",
                 letterSpacing: "0.05em",
@@ -132,7 +132,7 @@ const ProductDetail: React.FC = () => {
               sx={{ color: "red", paddingTop: "10px" }}
             />
             <Typography variant="caption" color="textSecondary">
-              {productDetail.reviewCount || 10} review
+              {productDetail.reviewCount || 10}
             </Typography>
             <Typography
               variant="body2"
@@ -140,7 +140,7 @@ const ProductDetail: React.FC = () => {
               color="textSecondary"
               fontSize={{ fontSize: "18px" }}
             >
-              Pice: {productDetail.price} $
+              Pice: ${productDetail.price}
             </Typography>
             <Typography
               variant="caption"
@@ -165,7 +165,7 @@ const ProductDetail: React.FC = () => {
                       width: 40,
                       height: 40,
                       border:
-                        selectedColor === color ? "2px solid black" : "none",
+                         color ? "2px solid black" : "none",
                     }}
                   />
                 </Grid>
@@ -190,32 +190,20 @@ const ProductDetail: React.FC = () => {
 
             <Grid container spacing={2} sx={{ marginTop: 2 }}>
               <Grid item>
+
                 <Button
                   onClick={handleAddCart}
                   variant="outlined"
-                  color="primary"
-                  sx={{
-                    borderColor: "primary.main",
-                    border: "1px solid black",
-                    color: "black",
-                    padding: "7px 90px",
-                    "&:hover": { backgroundColor: "black", color: "white" },
-                  }}
-                >
-                  Add to Cart
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  variant="contained"
                   sx={{
                     backgroundColor: "black",
+                    border: "1px solid black",
                     color: "white",
                     padding: "7px 90px",
-                    "&:hover": { color: "Black", background: "white" },
+                    "&:hover": { backgroundColor: "white", color: "black" },
                   }}
                 >
-                  Buy Now
+                  <AddShoppingCartIcon sx={{ marginRight: "10px" }} />
+                  Add to Cart
                 </Button>
               </Grid>
             </Grid>

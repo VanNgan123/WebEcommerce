@@ -12,5 +12,6 @@ export {default as AdminProducts} from "./Admin/AdminProduct";
 export {default as AdminUser} from "./Admin/AdminUser";
 export {default as AdminOrder} from "./Admin/AdminOrder";
 export {default as OrderHistoryPage} from "./Order";
+export {default as AccountSetting } from "./AccountSetting"
 
 // export {default as ProductCategory} from "./ProductCategory";

@@ -10,6 +10,7 @@ import { signupRequest } from "../../api/auth/auth.requestSignuo";
 import axiosUser from "../../api/axiosUser";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../layout/Footer";
+import Swal from "sweetalert2";
 
 
 const SignUp = () => {
@@ -46,19 +47,31 @@ const SignUp = () => {
 
       const result = await signupRequest(values);
       if(!result) {
-        alert("Tài khoản đã tồn tại");
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Account already exists!',
+        });
         return;
       }
       try {
         await axiosUser.post("/users", values);
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Registration successful!',
+          timer: 1500,
+          showConfirmButton: false,
+        });
         navigate("/login");
 
       } catch (error) {
-        alert("Đăng ký thất bại");
+        Swal.fire({
+          icon: 'error',
+          title: 'Đăng ký thất bại',
+          text: 'Please try again later!',
+        });
       }
-      
-
-
     },
   });
 

@@ -158,128 +158,137 @@ const AdminProduct = () => {
       }}
     >
       <Header />
-      <Box sx={{ display: "flex", flex: 1,paddingTop:"121px" }}>
-      <NavbarAdmin />
+      <Box sx={{ display: "flex", flex: 1, paddingTop: "102px" }}>
+        <NavbarAdmin />
 
-      <Box sx={{ flex: "1", padding: "0 30px" }}>
-        <Typography
-          variant="h4"
-          gutterBottom
-          sx={{
-            textAlign: "center",
-            mx: "auto",
-            fontWeight: "bold",
-            fontFamily: "monospace",
-            padding: "20px 0",
-          }}
-        >
-          Manage Products
-        </Typography>
-        <Typography
-          sx={{
-            margin: "0 0 20px 0",
-            paddingLeft: "20px",
-            textAlign: "left",
-            mx: "auto",
-            fontWeight: "bold",
-            fontFamily: "monospace",
-          }}
-        >
-          <Button
-            variant="outlined"
+        <Box sx={{ flex: "1", padding: "0 30px" }}>
+          <Typography
+            variant="h4"
+            gutterBottom
             sx={{
-              backgroundColor: "blue",
-              color: "white",
-              "&:hover": { color: "blue", border: "3px solid blue" },
+              textAlign: "center",
+              mx: "auto",
+              fontWeight: "bold",
+              fontFamily: "monospace",
+              padding: "20px 0",
             }}
-            onClick={() => handleOpen()}
           >
-            New Product
-          </Button>
-        </Typography>
-        {loading ? (
-          <Typography variant="h6">Loading...</Typography>
-        ) : (
-          <TableContainer component={Paper}>
-            <Table>
-              <Thead headers={headers} />
-              <TableBody>
-                {products.map((product, index) => (
-                  <TableRow key={product.id}>
-                    <TableCell>{product.name}</TableCell>
-                    <TableCell>
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        style={{ width: "50px" }}
-                      />
-                    </TableCell>
-                    <TableCell>${product.price}</TableCell>
-                    <TableCell>{product.description}</TableCell>
-                    <TableCell>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          gap: "10px",
-                        }}
-                      >
-                        <Button
-                          variant="contained"
-                          sx={{ backgroundColor: "#E0E008", color: "white" }}
-                          fullWidth
-                          onClick={() => {
-                            handleEdit(product);
-                          }}
-                        >
-                          Edit
-                        </Button>
-
-                        <IconButton
-                          onClick={() => {
-                            handleDelete(product.id.toString());
-                          }}
-                          sx={{
-                            backgroundColor: "red",
-                            color: "white",
-                            "&:hover": {
-                              backgroundColor: "darkred",
-                            },
-                          }}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
-        <Stack spacing={2} sx={{ margin: "20px 0" , alignItems: "center" }}>
-          <Pagination
-            page={page}
-            count={6}
-            variant="outlined"
-            shape="rounded"
-            onChange={(event, value) => setPage(value)}
+            Manage Products
+          </Typography>
+          <Typography
             sx={{
-              "& .MuiPaginationItem-root": {
-                height: "30px",
-                borderRadius: 0,
-                border: "1px solid black",
-                backgroundColor: "white",
-                color: "black",
-                "&:hover": {
-                  backgroundColor: "black",
-                  color: "white",
-                },
-              },
+              margin: "0 0 20px 0",
+              paddingLeft: "20px",
+              textAlign: "left",
+              mx: "auto",
+              fontWeight: "bold",
+              fontFamily: "monospace",
             }}
-          />
-        </Stack>
-      </Box>
+          >
+            <Button
+              variant="outlined"
+              sx={{
+                backgroundColor: "black",
+                color: "white",
+                "&:hover": { color: "black", border: "2px solid black",backgroundColor: "white" },
+              }}
+              onClick={() => handleOpen()}
+            >
+              New Product
+            </Button>
+          </Typography>
+          {loading ? (
+            <Typography variant="h6">Loading...</Typography>
+          ) : (
+            <TableContainer
+              component={Paper}
+              sx={{ boxShadow: 3, borderRadius: "8px" }}
+            >
+              <Table>
+                <Thead headers={headers} />
+                <TableBody>
+                  {products.map((product, index) => (
+                    <TableRow
+                      key={product.id}
+                      sx={{
+                        "&:nth-of-type(odd)": { backgroundColor: "#f5f5f5" }, // Màu nền cho hàng lẻ
+                        "&:hover": { backgroundColor: "#e0e0e0" },
+                      }}
+                    >
+                      <TableCell>{product.name}</TableCell>
+                      <TableCell>
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          style={{ width: "50px" }}
+                        />
+                      </TableCell>
+                      <TableCell>${product.price}</TableCell>
+                      <TableCell>{product.description}</TableCell>
+                      <TableCell>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            gap: "10px",
+                          }}
+                        >
+                          <Button
+                            variant="contained"
+                            sx={{ backgroundColor: "#E0E008", color: "white" }}
+                            fullWidth
+                            onClick={() => {
+                              handleEdit(product);
+                            }}
+                          >
+                            Edit
+                          </Button>
+
+                          <IconButton
+                            onClick={() => {
+                              handleDelete(product.id.toString());
+                            }}
+                            sx={{
+                              backgroundColor: "red",
+                              color: "white",
+                              "&:hover": {
+                                backgroundColor: "darkred",
+                              },
+                            }}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+          <Stack spacing={2} sx={{ margin: "20px 0", alignItems: "center" }}>
+            <Pagination
+              page={page}
+              count={6}
+              variant="outlined"
+              shape="rounded"
+              onChange={(event, value) => setPage(value)}
+              sx={{
+                "& .MuiPaginationItem-root": {
+                  height: "30px",
+                  borderRadius: 0,
+                  border: "1px solid black",
+                  backgroundColor: "white",
+                  color: "black",
+                  "&:hover": {
+                    backgroundColor: "black",
+                    color: "white",
+                  },
+                },
+              }}
+            />
+          </Stack>
+        </Box>
       </Box>
 
       <Footer />

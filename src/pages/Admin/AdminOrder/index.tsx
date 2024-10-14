@@ -26,18 +26,30 @@ const AdminOrder = () => {
   const [page, setPage] = useState(1);
   const limit = 12;
   const dispatch: AppDispatch = useDispatch();
-  
-  const headersOrder = ["ID","User Id", "Full Name", "Product", "Total Amount", "Address","Note", "Actions "];
+
+  const headersOrder = [
+    "ID",
+    "User Id",
+    "User Information",
+    "Product",
+    "Total Amount",
+
+    "Actions ",
+  ];
 
   useEffect(() => {
     dispatch(fetchOrders());
   }, [dispatch]);
 
-  const { orders, loading } = useSelector((state: RootState) => state.orderState);
-  console.log("🚀 ~ AdminOrder ~ orders:", orders)
+  const { orders, loading } = useSelector(
+    (state: RootState) => state.orderState
+  );
+  console.log("🚀 ~ AdminOrder ~ orders:", orders);
   const handleDelete = async (id: string) => {
     try {
-      const confirm = window.confirm("Are you sure you want to delete this order?");
+      const confirm = window.confirm(
+        "Are you sure you want to delete this order?"
+      );
       if (confirm) {
         await axiosProduct.delete(`/orders/${id}`);
         dispatch(fetchOrders());
@@ -50,7 +62,7 @@ const AdminOrder = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Header />
-      <Box sx={{ display: "flex", flex: 1, paddingTop: "121px" }}>
+      <Box sx={{ display: "flex", flex: 1, paddingTop: "102px" }}>
         <NavbarAdmin />
         <Box sx={{ flex: "1", padding: "0 30px" }}>
           <Typography
@@ -70,25 +82,65 @@ const AdminOrder = () => {
           {loading ? (
             <Typography variant="h6">Loading...</Typography>
           ) : orders && orders.length > 0 ? (
-            <TableContainer component={Paper}>
+            <TableContainer
+              component={Paper}
+              sx={{ boxShadow: 3, borderRadius: "8px" }}
+            >
               <Table>
                 <Thead headers={headersOrder} />
                 <TableBody>
                   {orders.map((order: any) => (
-                    <TableRow key={order.id}>
+                    <TableRow
+                      key={order.id}
+                      sx={{
+                        "&:nth-of-type(odd)": { backgroundColor: "#f5f5f5" }, // Màu nền cho hàng lẻ
+                        "&:hover": { backgroundColor: "#e0e0e0" }, // Hiệu ứng hover
+                      }}
+                    >
                       <TableCell>{order.id}</TableCell>
                       <TableCell>{order.userId}</TableCell>
-                      <TableCell>{order.fullName}</TableCell>
+                      <TableCell align="left">
+                      Full Name: {order.fullName} <br />
+                      Email: {order.email} <br />
+                      Phone: {order.phone} <br />
+                      Address: {order.address} <br />
+                     {order.note?`Note: {order.note}: `: 'Note: none'} 
+                    </TableCell>
                       <TableCell>
-                        {order.products.map((product: any) => (
-                          <Typography key={product.productId}>
-                            ID: {product.productId}, Quantity: {product.quantity}
+                      {order.products.map((product: any, index: number) => (
+                        <Box
+                          key={index}
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            marginBottom: "8px",
+                            padding: "8px",
+                            border: "1px solid #ccc",
+                          }}
+                        >
+                          {product.img && (
+                            <img
+                              src={product.img}
+                              alt={`Sản phẩm ID: ${product.productId}`}
+                              style={{
+                                width: "50px",
+                                height: "50px",
+                                marginRight: "10px",
+                                borderRadius: "4px",
+                                boxShadow: "0px 0px 5px rgba(0,0,0,0.2)",
+                              }}
+                            />
+                          )}
+                          <Typography sx={{ marginRight: "8px" }}>
+                            - Name Product: {product.nameProduct}
                           </Typography>
-                        ))}
+                          <Typography>
+                            - Quantity: {product.quantity}
+                          </Typography>
+                        </Box>
+                      ))}
                       </TableCell>
                       <TableCell>{order.totalAmount}</TableCell>
-                      <TableCell>{order.address}</TableCell>
-                      <TableCell>{order.note}</TableCell>
                       <TableCell>
                         <Box
                           sx={{
@@ -120,7 +172,7 @@ const AdminOrder = () => {
             <Typography variant="h6">No orders found.</Typography>
           )}
 
-          <Stack spacing={2} sx={{ marginTop: "20px", alignItems: "center" }}>
+          <Stack spacing={2} sx={{ margin: "20px 0", alignItems: "center" }}>
             <Pagination
               page={page}
               count={Math.ceil((orders?.length || 0) / limit)} // Tính tổng số trang dựa trên số lượng đơn hàng

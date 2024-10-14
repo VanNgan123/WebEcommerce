@@ -9,11 +9,11 @@ interface TheadProps {
 const Thead: React.FC<TheadProps> = ({ headers }) => {
   return (
     <TableHead>
-      <TableRow>
+      <TableRow sx={{ backgroundColor: "#092441", color: "white" }}>
         {headers.map((header, index) => (
           <TableCell
             key={index}
-            sx={{ fontWeight: "bold", borderBottom: "2px solid black" }}
+            sx={{ fontWeight: "bold", color: "white" }}
           >
             {header}
           </TableCell>

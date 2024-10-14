@@ -13,6 +13,7 @@ import {
   IconButton,
   Stack,
   Pagination,
+  CircularProgress,
 } from "@mui/material";
 
 import { Link, useParams } from "react-router-dom";
@@ -20,7 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../../store/slices/categoriesSlices";
 import Sidebar from "./components/siderbar";
 import { fetchProducts } from "../../store/slices/productSlices";
-import { ArrowForward } from "@mui/icons-material";
+import { ArrowForward, FavoriteBorder } from "@mui/icons-material";
 import Header from "../../layout/Header";
 import Footer from "../../layout/Footer";
 import { RootState } from "../../store/store";
@@ -53,15 +54,15 @@ const Products = () => {
       <h2
         style={{
           textAlign: "center",
-          marginTop: "120px",
+          marginTop: "140px",
           fontFamily: "monospace",
           fontWeight: "bold",
         }}
         className="allProduct"
       >
-        All Products
+        ALL PRODUCTS
       </h2>
-      <Grid container spacing={2} mt={0} sx={{ marginBottom: "60px" }}>
+      <Grid container spacing={1} mt={0} sx={{ marginBottom: "60px" }}>
         <Grid item xs={2}>
           <Sidebar />
         </Grid>
@@ -73,7 +74,9 @@ const Products = () => {
             mt={0}
             minHeight={"90vh"}
           >
-            {loading && <div>Loading....</div>}
+            {loading && 
+            <CircularProgress color="inherit" />
+            }
             {productList.length === 0 ? (
               <div>Product not found....</div>
             ) : (
@@ -81,16 +84,14 @@ const Products = () => {
                 container
                 spacing={4}
                 sx={{
-                  justifyContent: "center",
-                  gap: "10px",
                   marginTop: "0",
                 }}
-                justifyContent="center"
+
               >
                 {productList.map((product: any) => (
                   <Grid item xs={2.9} key={product.id}>
                     <Card
-                      style={{ height: 500 }}
+                      style={{ height: 450 }}
                       sx={{
                         "&:hover": { transform: "scale(1.05)" },
                         transition: "transform 0.6s",
@@ -103,13 +104,19 @@ const Products = () => {
                       >
                         <CardMedia
                           component="img"
-                          height="385"
+                          height="340"
                           image={product.image} // Make sure `product.image` is a valid URL
                           alt={product.name}
                           style={{ objectFit: "cover" }}
-                          sx={{ objectFit: "cover", height: "330px" }}
+                          sx={{ objectFit: "cover", height: "280px" }}
                         />
+                        <Typography >
+                           
+                        </Typography>
                         <CardContent sx={{ textAlign: "left" }}>
+                          <Typography variant="body2" color="white" sx={{background:"black", width:"60px",padding:"5px",borderRadius:"15px",textAlign:"center",marginLeft:"95px"}}>
+                             New
+                          </Typography>
                           <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                             {product.name}
                           </Typography>
@@ -118,7 +125,7 @@ const Products = () => {
                             mt={1}
                             color="textSecondary"
                           >
-                            Pice: {product.price} $
+                            Pice: ${product.price} 
                           </Typography>
                           <Rating
                             name="read-only"

@@ -164,7 +164,7 @@ const Contents: React.FC = () => {
                       {product.name}
                     </Typography>
                     <Typography variant="body2" mt={1} color="textSecondary">
-                      Pice: {product.price} $
+                      Pice: ${product.price}
                     </Typography>
                     <Rating
                       name="read-only"
@@ -174,7 +174,7 @@ const Contents: React.FC = () => {
                       sx={{ color: "red" }}
                     />
                     <Typography variant="caption" color="textSecondary">
-                      {product.reviewCount || 10} review
+                      ({product.reviewCount || 10})
                     </Typography>
                   </CardContent>
                 </Link>
@@ -184,14 +184,15 @@ const Contents: React.FC = () => {
           <Button
             component={Link}
             to="/products"
-            variant="outlined"
             sx={{
+              textDecoration : "none",
               margin: "20px 0 0 30px",
               width: "300px",
               height: "40px",
-              border: "1px solid #0066CC",
-              color: "#0066CC",
-              "&:hover": { background: "#0066CC", color: "white" },
+              background: "black",
+              border:"1px solid black",
+              color: "white" ,
+              "&:hover": { background:"white",color:"black"  },
             }}
             endIcon={<ArrowForward />}
           >
@@ -336,7 +337,7 @@ const Contents: React.FC = () => {
                       {product.name}
                     </Typography>
                     <Typography variant="body2" mt={1} color="textSecondary">
-                      Pice: {product.price} $
+                      Pice: ${product.price} 
                     </Typography>
                     <Rating
                       name="read-only"
@@ -346,7 +347,7 @@ const Contents: React.FC = () => {
                       sx={{ color: "red" }}
                     />
                     <Typography variant="caption" color="textSecondary">
-                      {product.reviewCount || 86} review
+                      ({product.reviewCount || 86}) 
                     </Typography>
                   </CardContent>
                 </Link>
@@ -356,14 +357,15 @@ const Contents: React.FC = () => {
           <Button
             component={Link}
             to="/products"
-            variant="outlined"
             sx={{
+              textDecoration : "none",
               margin: "20px 0 0 30px",
               width: "300px",
               height: "40px",
-              border: "1px solid #0066CC",
-              color: "#0066CC",
-              "&:hover": { background: "#0066CC", color: "white" },
+              background: "black",
+              border:"1px solid black",
+              color: "white" ,
+              "&:hover": { background:"white",color:"black"  },
             }}
             endIcon={<ArrowForward />}
           >
@@ -439,15 +441,16 @@ const Contents: React.FC = () => {
                   </Typography>
                   <Button
                     variant="contained"
-                    color="primary"
+                    // color="black"
                     component={Link} // Link khi bấm nút sẽ chuyển trang
                     to={Spotlight.link} // Link chuyển trang
                     sx={{
-                      color: "white",
-                      backgroundColor: "#0066CC",
+                      color: "black",
+                      backgroundColor: "#E4D5C7",
                       borderRadius: "50px",
                       alignSelf: "flex-end",
-                      marginTop: "auto", // Đẩy nút xuống đáy
+                      marginTop: "auto", 
+                      fontWeight: "bold",
                     }}
                   >
                     Shop Now

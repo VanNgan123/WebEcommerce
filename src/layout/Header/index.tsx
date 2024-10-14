@@ -18,6 +18,7 @@ import {
   Logout,
   Search,
   ShoppingCart,
+  SportsMartialArts,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -63,13 +64,15 @@ const Header = () => {
     }
   }, [search, dispatch]);
 
-  return (
+  return (//#092441
     <AppBar position="fixed" sx={{ backgroundColor: "#092441", zIndex: 10 }}>
       <Toolbar
         sx={{
           justifyContent: "space-between",
-          padding: "0 90px",
+          padding: "0 60px",
           alignItems: "center",
+          minHeight:"45px",
+          height: "45px",
         }}
       >
         {/* Logo Center */}
@@ -80,7 +83,7 @@ const Header = () => {
             sx={{
               fontFamily: "YourCustomFont, sans-serif",
               fontWeight: "bold",
-              fontSize: "24px",
+              fontSize: "23px",
               color: "white",
               marginLeft: "350px",
             }}
@@ -103,9 +106,9 @@ const Header = () => {
             sx={{
               borderBottom: "1px solid white",
               color: "white",
-              padding: "0 10px",
+              padding: "0 8px",
               width: "200px",
-              marginRight: "10px",
+              marginRight: "8px",
             }}
           />
           <IconButton
@@ -128,7 +131,7 @@ const Header = () => {
                       "&:hover": { backgroundColor: "#898282" },
                     }}
                   >
-                    <AccountCircle sx={{ fontSize: "24px" }} />
+                    <AccountCircle sx={{ fontSize: "23px" }} />
                   </IconButton>
                 </Tooltip>
                 <Tooltip title="Logout">
@@ -140,7 +143,7 @@ const Header = () => {
                       "&:hover": { backgroundColor: "#898282" },
                     }}
                   >
-                    <Logout sx={{ fontSize: "24px" }} />
+                    <Logout sx={{ fontSize: "23px" }} />
                   </IconButton>
                 </Tooltip>
               </>
@@ -161,7 +164,7 @@ const Header = () => {
             to="/cart"
             sx={{ color: "white", "&:hover": { backgroundColor: "#f0f0f0" } }}
           >
-            <ShoppingCart sx={{ fontSize: "24px" }} />
+            <ShoppingCart sx={{ fontSize: "23px" }} />
           </IconButton>
         </Box>
       </Toolbar>
@@ -169,8 +172,9 @@ const Header = () => {
         sx={{
           display: "flex",
           justifyContent: "center",
-          padding: "10px 0",
+          padding: "4px 0",
           backgroundColor: "#f9f9f9",
+          height: "45px",
         }}
       >
         {/* Các nút điều hướng */}
@@ -292,7 +296,7 @@ const Header = () => {
             {productSearch.map((product: Product) => (
               <ListItem
                 component={Link}
-                to={`/product/${product.id}`}
+                to={`/product/detail/${product.id}`}
                 key={product.id}
               >
                 <Box
@@ -331,11 +335,11 @@ const Header = () => {
                         </span>
                       }
                       secondary={
-                        <span
+                        <div
                           style={{ fontFamily: "YourCustomFont, sans-serif" }}
                         >
                           Price: ${product.price}
-                        </span>
+                        </div>
                       }
                     />
                   </Box>

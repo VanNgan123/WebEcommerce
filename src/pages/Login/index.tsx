@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logninRequest } from "../../api/auth/auth.request";
 import { login } from "../../store/slices/userSlices";
 import {  useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const Login = () => {
@@ -38,10 +39,13 @@ const Login = () => {
     }),
     onSubmit:async(values) => {
       const result = await logninRequest(values);
-      console.log("🚀 ~ onSubmit:async ~ result :", result )
       if(!result){
         localStorage.setItem("isLogin", "false");
-        alert("Tài khoản hoặc mật khách không hợp lệ");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Invalid account or password!!",
+        });
         return;
       }
       const { id, email, token,role } = result;
@@ -49,7 +53,11 @@ const Login = () => {
       localStorage.setItem('idUser', id);
       localStorage.setItem("isLogin", "true"); // Store isLogin as "true" string
       localStorage.setItem("userRole", role);
-
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "Login successfully!",
+      })
       navigate("/");
     },
   });

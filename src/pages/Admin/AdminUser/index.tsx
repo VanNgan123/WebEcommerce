@@ -30,7 +30,6 @@ import * as Yup from "yup";
 import axiosProduct from "../../../api/axiosProduct";
 import NavbarAdmin from "../components/navbar";
 
-
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -87,6 +86,7 @@ const AdminUser = () => {
     }
   };
   const handleDelete = async (id: string) => {
+    
     // Handle delete user
     try {
       await axiosProduct.delete(`/users/${id}`); // Delete user by ID
@@ -128,103 +128,112 @@ const AdminUser = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Header />
-      
-      <Box sx={{ display: "flex", flex: 1,paddingTop:"121px" }}>
-      <NavbarAdmin />
 
-      <Box sx={{ flex: "1", padding: "0 30px" }}>
-        <Typography
-          variant="h4"
-          gutterBottom
-          sx={{
-            textAlign: "center",
-            mx: "auto",
-            fontWeight: "bold",
-            fontFamily: "monospace",
-            padding: "20px 0",
-          }}
-        >
-          User Management
-        </Typography>
-        <Typography
-          sx={{
-            margin: "0 0 20px 0",
-            paddingLeft: "20px",
-            textAlign: "left",
-            mx: "auto",
-            fontWeight: "bold",
-            fontFamily: "monospace",
-          }}
-        >
-          <Button
-            variant="outlined"
+      <Box sx={{ display: "flex", flex: 1, paddingTop: "102px" }}>
+        <NavbarAdmin />
+
+        <Box sx={{ flex: "1", padding: "0 30px" }}>
+          <Typography
+            variant="h4"
+            gutterBottom
             sx={{
-              backgroundColor: "blue",
-              color: "white",
-              "&:hover": { color: "blue", border: "3px solid blue" },
+              textAlign: "center",
+              mx: "auto",
+              fontWeight: "bold",
+              fontFamily: "monospace",
+              padding: "20px 0",
             }}
-            onClick={() => handleOpen()}
           >
-            New User
-          </Button>
-        </Typography>
-        {loading ? (
-          <Typography variant="h6">Loading...</Typography>
-        ) : (
-          <TableContainer component={Paper}>
-            <Table>
-              <Thead headers={headersUser} />
-              <TableBody>
-                {users.map((user, index) => (
-                  <TableRow key={user.id}>
-                    <TableCell>{user.username}</TableCell>
+            User Management
+          </Typography>
+          <Typography
+            sx={{
+              margin: "0 0 20px 0",
+              paddingLeft: "20px",
+              textAlign: "left",
+              mx: "auto",
+              fontWeight: "bold",
+              fontFamily: "monospace",
+            }}
+          >
+            <Button
+              variant="outlined"
+              sx={{
+                backgroundColor: "black",
+                color: "white",
+                "&:hover": { color: "black", border: "2px solid black",backgroundColor: "white" },
+              }}
+              onClick={() => handleOpen()}
+            >
+              New User
+            </Button>
+          </Typography>
+          {loading ? (
+            <Typography variant="h6">Loading...</Typography>
+          ) : (
+            <TableContainer
+              component={Paper}
+              sx={{ boxShadow: 3, borderRadius: "8px" }}
+            >
+              <Table>
+                <Thead headers={headersUser} />
+                <TableBody>
+                  {users.map((user: any, index) => (
+                    <TableRow
+                      key={user.id}
+                      sx={{
+                        "&:nth-of-type(odd)": { backgroundColor: "#f5f5f5" }, // Màu nền cho hàng lẻ
+                        "&:hover": { backgroundColor: "#e0e0e0" },
+                      }}
+                    >
+                      <TableCell>{user.username}</TableCell>
 
-                    <TableCell>{user.fullname}</TableCell>
-                    <TableCell>{user.email}</TableCell>
-                    <TableCell>{user.role}</TableCell>
-                    <TableCell>{user.password}</TableCell>
-                    <TableCell>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          gap: "10px",
-                        }}
-                      >
-                        <Button
-                          variant="contained"
-                          sx={{ backgroundColor: "#E0E008", color: "white" }}
-                          fullWidth
-                          onClick={() => {
-                            handleEdit(user);
-                          }}
-                        >
-                          Edit
-                        </Button>
-
-                        <IconButton
-                          onClick={() => {
-                            handleDelete(user.id.toString());
-                          }}
+                      <TableCell>{user.fullname}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>{user.role}</TableCell>
+                      <TableCell>{user.password}</TableCell>
+                      <TableCell>
+                        <Box
                           sx={{
-                            backgroundColor: "red",
-                            color: "white",
-                            "&:hover": {
-                              backgroundColor: "darkred",
-                            },
+                            display: "flex",
+                            justifyContent: "space-between",
+                            gap: "10px",
                           }}
                         >
-                          <DeleteIcon />
-                        </IconButton>
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
-        <Stack spacing={2} sx={{ marginTop: "20px",alignItems:"center" }}>
+                          <Button
+                            variant="contained"
+                            sx={{ backgroundColor: "#E0E008", color: "white" }}
+                            fullWidth
+                            onClick={() => {
+                              handleEdit(user);
+                            }}
+                          >
+                            Edit
+                          </Button>
+
+                          <IconButton
+                            onClick={() => {
+                              handleDelete(user.id.toString());
+                            }}
+                            sx={{
+                              backgroundColor: "red",
+                              color: "white",
+                              "&:hover": {
+                                backgroundColor: "darkred",
+                              },
+                            }}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+          <Stack spacing={2} sx={{ marginTop: "20px", alignItems: "center" }}>
             <Pagination
               page={page}
               count={6}
@@ -245,10 +254,8 @@ const AdminUser = () => {
                 },
               }}
             />
-        </Stack>
-      </Box>
-
-
+          </Stack>
+        </Box>
       </Box>
       <Modal
         aria-labelledby="transition-modal-title"

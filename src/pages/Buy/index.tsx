@@ -8,6 +8,7 @@ import { CartItem, fetchCarts } from "../../store/slices/cartSlices";
 import Header from "../../layout/Header";
 import Footer from "../../layout/Footer";
 import axiosProduct from "../../api/axiosProduct";
+import Swal from "sweetalert2";
 
 const Buy = () => {
   const userId = localStorage.getItem("idUser");
@@ -66,14 +67,20 @@ const Buy = () => {
           productId: cart.productId,
           quantity: cart.quantity,
           userId: cart.userId,
+          nameProduct: cart.product.name,
         })),
         totalAmount: finalTotal,
         date: new Date().toISOString(),
       };
-      console.log("🚀 ~ Buy ~ orderData:", orderData)
       try {
         await axiosProduct.post("/orders", orderData);
-        alert("Đơn đóng mua hàng thành cập");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "You have successfully placed your order.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         deleteCartUser(carts);
         navigate("/");
       } catch (error) {
@@ -93,7 +100,11 @@ const Buy = () => {
       <Header />
 
       <form onSubmit={formik.handleSubmit}>
-        <Grid container spacing={3} sx={{ marginTop: "120px", padding: "20px" }}>
+        <Grid
+          container
+          spacing={3}
+          sx={{ marginTop: "100px", padding: "20px" }}
+        >
           {/* Cột trái: Thông tin giao hàng */}
           <Grid item xs={12} md={7}>
             <Paper sx={{ padding: "20px" }}>
@@ -101,10 +112,10 @@ const Buy = () => {
                 variant="h5"
                 sx={{ fontWeight: "bold", marginBottom: 3 }}
               >
-                Thông tin giao hàng
+                Delivery Information
               </Typography>
               <TextField
-                label="Họ và tên"
+                label="Full Name"
                 fullWidth
                 sx={{ marginBottom: 2 }}
                 name="fullName"
@@ -129,7 +140,7 @@ const Buy = () => {
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
-                    label="Số điện thoại"
+                    label="Telephone"
                     fullWidth
                     name="phone"
                     value={formik.values.phone}
@@ -140,7 +151,7 @@ const Buy = () => {
                 </Grid>
               </Grid>
               <TextField
-                label="Địa chỉ"
+                label="Address"
                 fullWidth
                 sx={{ marginBottom: 2 }}
                 name="address"
@@ -150,7 +161,7 @@ const Buy = () => {
                 helperText={formik.touched.address && formik.errors.address} // Display error message
               />
               <TextField
-                label="Ghi chú sản phẩm"
+                label="Note"
                 fullWidth
                 multiline
                 rows={4}
@@ -196,33 +207,33 @@ const Buy = () => {
                     <Typography variant="body1">{cart.product.name}</Typography>
                   </Box>
                   <Typography variant="body1">
-                    {cart.quantity} x {cart.product.price.toFixed(2)}$
+                    {cart.quantity} x ${cart.product.price.toFixed(2)}
                   </Typography>
                 </Box>
               ))}
               <Box sx={{ marginTop: 2 }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                    Tổng cộng:
+                    Total:
                   </Typography>
                   <Typography variant="body1">
-                    {totalAmount.toFixed(2)}$
+                  ${totalAmount.toFixed(2)}
                   </Typography>
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                    Phí ship:
+                    Shipping Fee:
                   </Typography>
                   <Typography variant="body1">
-                    {shippingFee.toFixed(2)}$
+                  ${shippingFee.toFixed(2)}
                   </Typography>
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                    Tổng tiền thanh toán:
+                    Total Payment:
                   </Typography>
                   <Typography variant="body1">
-                    {finalTotal.toFixed(2)}$
+                  ${finalTotal.toFixed(2)}
                   </Typography>
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "right" }}>
@@ -230,9 +241,20 @@ const Buy = () => {
                     type="submit"
                     variant="contained"
                     fullWidth
-                    sx={{ width: "150px", marginTop: 2, alignSelf: "flex-end", backgroundColor:"black",color:"white", "&:hover": { backgroundColor: "white", color: "black" ,border:"1px solid black"}}}
+                    sx={{
+                      width: "150px",
+                      marginTop: 2,
+                      alignSelf: "flex-end",
+                      backgroundColor: "black",
+                      color: "white",
+                      "&:hover": {
+                        backgroundColor: "white",
+                        color: "black",
+                        border: "1px solid black",
+                      },
+                    }}
                   >
-                    Đặt hàng
+                    Order
                   </Button>
                 </Box>
               </Box>

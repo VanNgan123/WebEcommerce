@@ -1,5 +1,5 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { About, AdminProducts, AdminUser, Buy, ByCategoryProducts, Cart, Home, Login, OrderHistoryPage, ProductDetail, Products, Shop, SignUp } from '../pages';
+import { About, AccountSetting, AdminProducts, AdminUser, Buy, ByCategoryProducts, Cart, Home, Login, OrderHistoryPage, ProductDetail, Products, Shop, SignUp } from '../pages';
 import ScrollToTop from '../components/ScrollToTop';
 import AdminOrder from '../pages/Admin/AdminOrder';
 import WithAdminAuth from '../hocs/WithAdminAuth';
@@ -37,6 +37,7 @@ const Routers = () => {
           <Route path='/about' element={<About />} />
           <Route path='/order' element={<ProtectedOrderHistory />} />
           <Route path='/buy' element={<ProtectedBuy />} />
+          <Route path='/profile' element={<AccountSetting />} />
         {/* admin */}
           <Route path='/admin/product' element={<ProtectedAdminProducts />} />
           <Route path='/admin/user' element={<ProtectedAdminUser />} />
