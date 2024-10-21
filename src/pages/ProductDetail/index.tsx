@@ -23,8 +23,9 @@ import Footer from "../../layout/Footer";
 import { cartsRequest } from "../../api/auth/auth.cartRequest";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { ShoppingCart } from "@mui/icons-material";
+import Swal from "sweetalert2";
 
-const ProductDetail: React.FC = () => {
+const ProductDetail= () => {
   const [selectedColor, setSelectedColor] = useState<string>(""); // State for selected color
   const [quantity, setQuantity] = useState<number>(1); // State for quantity
   const navigate = useNavigate();
@@ -78,7 +79,10 @@ const ProductDetail: React.FC = () => {
         console.log("🚀 ~ handleAddCart ~ result:", result);
         navigate("/cart");
       } else {
-        alert("Thêm sản phẩm vào giỏ hàng thất bại");
+        Swal.fire({
+          icon: "error",
+          text: "Something went wrong. Please try again later.",
+        });
       }
     } catch (error) {
       console.log(error);

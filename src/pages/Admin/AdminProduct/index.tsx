@@ -31,6 +31,7 @@ import { fetchCategories } from "../../../store/slices/categoriesSlices";
 import axiosProduct from "../../../api/axiosProduct";
 import AdminUser from "../AdminUser";
 import NavbarAdmin from "../components/navbar";
+import Swal from "sweetalert2";
 
 // Schema validation with Yup
 
@@ -93,11 +94,30 @@ const AdminProduct = () => {
     dispatch(fetchProducts(payload));
   }, [dispatch, page]);
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     try {
-      axiosProduct.delete(`/products/${id}`);
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+      if (result.isConfirmed) {
+        await axiosProduct.delete(`/products/${id}`);
+        Swal.fire("Deleted!", "The product has been deleted.", "success");
+        // Gọi lại API để cập nhật danh sách sản phẩm sau khi xóa
+        dispatch(fetchProducts()); // Cập nhật lại dữ liệu sản phẩm nếu bạn đang sử dụng Redux để quản lý state
+      }
     } catch (error) {
       console.log(error);
+      Swal.fire(
+        "Error!",
+        "An error occurred while deleting the product.",
+        "error"
+      );
     }
   };
 
@@ -190,7 +210,11 @@ const AdminProduct = () => {
               sx={{
                 backgroundColor: "black",
                 color: "white",
-                "&:hover": { color: "black", border: "2px solid black",backgroundColor: "white" },
+                "&:hover": {
+                  color: "black",
+                  border: "2px solid black",
+                  backgroundColor: "white",
+                },
               }}
               onClick={() => handleOpen()}
             >

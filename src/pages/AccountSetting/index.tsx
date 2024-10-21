@@ -33,6 +33,7 @@ import { useFormik } from "formik";
 import axiosProduct from "../../api/axiosProduct";
 import { Close as CloseIcon } from "@mui/icons-material";
 import LockIcon from "@mui/icons-material/Lock";
+import Swal from "sweetalert2";
 
 const style = {
   position: "absolute" as "absolute",
@@ -112,7 +113,10 @@ const AccountSetting = () => {
               password: values.newpassword,
             });
           } else {
-            alert("Old password is not correct");
+            Swal.fire({
+              icon: "error",
+              text: "Old password is not correct!",
+            });
           }
         }
         dispatch(fetchUser());

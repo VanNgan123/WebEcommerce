@@ -82,7 +82,7 @@ const Buy = () => {
           timer: 1500,
         });
         deleteCartUser(carts);
-        navigate("/");
+        navigate("/orders");
       } catch (error) {
         alert("Lưu đơn không thành công! Vui lòng thử lại.");
       }

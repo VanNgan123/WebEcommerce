@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosProduct = axios.create({
-   baseURL: "http://localhost:4000",//https://backend-stj2.onrender.com
+   baseURL: "https://backend-stj2.onrender.com",//http://localhost:4000
    timeout: 10000,
 });
 

@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
-const Contents: React.FC = () => {
+const Contents = () => {
   const dispatch = useDispatch();
   const bycatagories = [
     {
@@ -68,14 +68,14 @@ const Contents: React.FC = () => {
       title: "Pantony 6P Activity Tracker",
       image:
         "https://static.wixstatic.com/media/c837a6_e5bbe5af2f99449c95beef06d49920d0~mv2.jpg/v1/fill/w_868,h_606,fp_0.47_0.38,q_85,usm_0.66_1.00_0.01,enc_auto/c837a6_e5bbe5af2f99449c95beef06d49920d0~mv2.jpg", // Đặt URL của ảnh ở đây
-      link: "/shop/mobile",
+      link: "product/detail/6d97a425-3900-4208-b685-89cdc28556e3",
     },
     {
       id: 2,
       title: "Studio 8 Portable Bluetooth Speaker",
       image:
         "https://static.wixstatic.com/media/c837a6_787ae33e92e54dbd834feddf9d78df23~mv2.jpg/v1/fill/w_868,h_606,fp_0.48_0.47,q_85,usm_0.66_1.00_0.01,enc_auto/templatesdrive_3d_model_of_a_disc_shaped_portable_speaker_shot__a4876fca-fd77-4e24-be0b-58.jpg",
-      link: "/shop/cameras",
+      link: "product/detail/6d97a425-3900-4208-b685-89cdc28556e3",
     },
   ];
   const productList = useSelector((state: any) => state.productState.products);

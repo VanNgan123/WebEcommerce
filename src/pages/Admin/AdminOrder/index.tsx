@@ -21,6 +21,7 @@ import { Delete as DeleteIcon } from "@mui/icons-material";
 import NavbarAdmin from "../components/navbar";
 import Thead from "../components/THead";
 import axiosProduct from "../../../api/axiosProduct";
+import Swal from "sweetalert2";
 
 const AdminOrder = () => {
   const [page, setPage] = useState(1);
@@ -33,7 +34,6 @@ const AdminOrder = () => {
     "User Information",
     "Product",
     "Total Amount",
-
     "Actions ",
   ];
 
@@ -46,16 +46,25 @@ const AdminOrder = () => {
   );
   console.log("🚀 ~ AdminOrder ~ orders:", orders);
   const handleDelete = async (id: string) => {
-    try {
-      const confirm = window.confirm(
-        "Are you sure you want to delete this order?"
-      );
-      if (confirm) {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      try {
         await axiosProduct.delete(`/orders/${id}`);
+        Swal.fire("Deleted!", "The order has been deleted.", "success");
         dispatch(fetchOrders());
+      } catch (error) {
+        console.log(error);
+        Swal.fire("Error!", "There was an error deleting the order.", "error");
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -100,45 +109,45 @@ const AdminOrder = () => {
                       <TableCell>{order.id}</TableCell>
                       <TableCell>{order.userId}</TableCell>
                       <TableCell align="left">
-                      Full Name: {order.fullName} <br />
-                      Email: {order.email} <br />
-                      Phone: {order.phone} <br />
-                      Address: {order.address} <br />
-                     {order.note?`Note: {order.note}: `: 'Note: none'} 
-                    </TableCell>
+                        Full Name: {order.fullName} <br />
+                        Email: {order.email} <br />
+                        Phone: {order.phone} <br />
+                        Address: {order.address} <br />
+                        {order.note ? `Note: {order.note}: ` : "Note: none"}
+                      </TableCell>
                       <TableCell>
-                      {order.products.map((product: any, index: number) => (
-                        <Box
-                          key={index}
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            marginBottom: "8px",
-                            padding: "8px",
-                            border: "1px solid #ccc",
-                          }}
-                        >
-                          {product.img && (
-                            <img
-                              src={product.img}
-                              alt={`Sản phẩm ID: ${product.productId}`}
-                              style={{
-                                width: "50px",
-                                height: "50px",
-                                marginRight: "10px",
-                                borderRadius: "4px",
-                                boxShadow: "0px 0px 5px rgba(0,0,0,0.2)",
-                              }}
-                            />
-                          )}
-                          <Typography sx={{ marginRight: "8px" }}>
-                            - Name Product: {product.nameProduct}
-                          </Typography>
-                          <Typography>
-                            - Quantity: {product.quantity}
-                          </Typography>
-                        </Box>
-                      ))}
+                        {order.products.map((product: any, index: number) => (
+                          <Box
+                            key={index}
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              marginBottom: "8px",
+                              padding: "8px",
+                              border: "1px solid #ccc",
+                            }}
+                          >
+                            {product.img && (
+                              <img
+                                src={product.img}
+                                alt={`Sản phẩm ID: ${product.productId}`}
+                                style={{
+                                  width: "50px",
+                                  height: "50px",
+                                  marginRight: "10px",
+                                  borderRadius: "4px",
+                                  boxShadow: "0px 0px 5px rgba(0,0,0,0.2)",
+                                }}
+                              />
+                            )}
+                            <Typography sx={{ marginRight: "8px" }}>
+                              - Name Product: {product.nameProduct}
+                            </Typography>
+                            <Typography>
+                              - Quantity: {product.quantity}
+                            </Typography>
+                          </Box>
+                        ))}
                       </TableCell>
                       <TableCell>{order.totalAmount}</TableCell>
                       <TableCell>

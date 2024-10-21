@@ -17,11 +17,11 @@ const SignUp = () => {
   const navigate = useNavigate();
 
 
-  const isLoggedIn = localStorage.getItem("isLogin") === "true"; // Hoặc dùng Redux
+  const isLoggedIn = localStorage.getItem("isLogin") === "true"; 
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/"); // Chuyển hướng đến trang chính nếu đã đăng nhập
+      navigate("/");
     }
   }, [isLoggedIn, navigate]);
   const formikSignUp = useFormik({
@@ -64,11 +64,10 @@ const SignUp = () => {
           showConfirmButton: false,
         });
         navigate("/login");
-
       } catch (error) {
         Swal.fire({
           icon: 'error',
-          title: 'Đăng ký thất bại',
+          title: 'Oops...',
           text: 'Please try again later!',
         });
       }

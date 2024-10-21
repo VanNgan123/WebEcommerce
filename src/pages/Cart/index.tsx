@@ -40,6 +40,7 @@ const Cart = () => {
   }, [dispatch, userId]);
   const carts = useSelector((state: any) => state.cartState.carts) || [];
 
+  
   const handleDelete = async (id: string) => {
     const result = (await Swal.fire({
       title: "Are you sure?",
@@ -169,26 +170,10 @@ const Cart = () => {
                         {/* Giá sản phẩm */}
                       </TableCell>
                       <TableCell>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            border: "1px solid black",
-                            width: "90px",
-                          }}
-                        >
-                          <IconButton>
-                            <Remove />
-                          </IconButton>
                           <Typography variant="body2">
                             {cart.quantity}
                           </Typography>{" "}
                           {/* Số lượng sản phẩm */}
-                          <IconButton>
-                            <Add />
-                          </IconButton>
-                        </Box>
                       </TableCell>
                       <TableCell>
                         <Typography variant="body2" sx={{ fontWeight: "bold" }}>

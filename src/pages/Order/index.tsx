@@ -160,7 +160,7 @@ const OrderHistoryPage = () => {
                       scope="row"
                       sx={{ fontWeight: "bold" }}
                     >
-                      {order.id}
+                      #{order.id}
                     </TableCell>
                     <TableCell align="left">
                       Full Name: {order.fullName} <br />
