@@ -66,32 +66,6 @@ const NavbarSetting = () => {
           <AccountCircleIcon sx={{marginRight: "10px",fontSize: "40px"}}/>  Personal information
         </Typography>
       </Link>
-
-      {/* Link tới Admin User */}
-      <Link to="" style={{ textDecoration: "none" }}>
-        <Typography
-          variant="body1"
-          gutterBottom
-          sx={{
-            fontSize: "16px",
-            color: "#333",
-            cursor: "pointer",
-            backgroundColor: "#efefef",
-            border: "1px solid #ccc",
-            borderRadius: "5px",
-            padding: "10px",
-            marginTop: "10px",
-            transition: "all 0.3s ease",
-            "&:hover": {
-              backgroundColor: "#d0d0d0",
-              color: "#000",
-              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-            },
-          }}
-        >
-          <AdminPanelSettingsIcon sx={{marginRight: "10px",fontSize: "40px"}}/> Password
-        </Typography>
-      </Link>
     </Box>
   );
 };

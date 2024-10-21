@@ -18,7 +18,7 @@ import {
 import { useEffect, useState } from "react";
 import { AppDispatch, RootState } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchUser } from "../../store/slices/userSlices";
 import Header from "../../layout/Header";
 import Footer from "../../layout/Footer";
@@ -32,8 +32,8 @@ import Stack from "@mui/material/Stack";
 import { useFormik } from "formik";
 import axiosProduct from "../../api/axiosProduct";
 import { Close as CloseIcon } from "@mui/icons-material";
-import LockIcon from "@mui/icons-material/Lock";
 import Swal from "sweetalert2";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const style = {
   position: "absolute" as "absolute",
@@ -131,7 +131,18 @@ const AccountSetting = () => {
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       <Header />
       <Box sx={{ display: "flex", flex: 1, paddingTop: "109px" }}>
-        <NavbarSetting />
+        <Link
+          to="/"
+          style={{
+            textDecoration: "none",
+            backgroundColor: "#f5f5f5",
+            padding: "10px 0 10px 30px  ",
+            color: "black",
+          }}
+        >
+          <ArrowBackIosIcon />BACK
+        </Link>
+        {/* <NavbarSetting /> */}
         <Box
           sx={{
             flex: 1,
@@ -155,7 +166,7 @@ const AccountSetting = () => {
                   >
                     Profile Settings
                   </Typography>
-                  
+
                   <Grid container spacing={2}>
                     <Grid item xs={12} sm={12}>
                       <TextField
@@ -185,7 +196,7 @@ const AccountSetting = () => {
                         }}
                       />
                     </Grid>
-                  <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={6}>
                       <TextField
                         label="Email"
                         fullWidth
@@ -198,9 +209,8 @@ const AccountSetting = () => {
                           shrink: true, // Giúp label không chồng lên value
                         }}
                       />
-                  </Grid>
-                    
-                    
+                    </Grid>
+
                     <Grid item xs={12} sm={6}>
                       <TextField
                         label="Password"
@@ -217,7 +227,21 @@ const AccountSetting = () => {
                     </Grid>
                   </Grid>
                   <Box mt={4} textAlign="center">
-                    <Button type="button" onClick={() => handleOpen(user)} variant="contained" sx={{ width: 200,color: "white",backgroundColor: "black","&:hover": { backgroundColor: "white", color: "black",border: "1px solid black" } }}>
+                    <Button
+                      type="button"
+                      onClick={() => handleOpen(user)}
+                      variant="contained"
+                      sx={{
+                        width: 200,
+                        color: "white",
+                        backgroundColor: "black",
+                        "&:hover": {
+                          backgroundColor: "white",
+                          color: "black",
+                          border: "1px solid black",
+                        },
+                      }}
+                    >
                       Change Password
                     </Button>
                   </Box>

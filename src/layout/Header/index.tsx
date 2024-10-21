@@ -214,7 +214,7 @@ const Header = () => {
         >
           Products
         </Button>
-        <Button
+        {/* <Button
           color="inherit"
           component={Link}
           to="/about"
@@ -231,7 +231,7 @@ const Header = () => {
           }}
         >
           About
-        </Button>
+        </Button> */}
         {isLogin && role === "admin" ? (
           <Button
             color="inherit"

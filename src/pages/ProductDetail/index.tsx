@@ -24,6 +24,7 @@ import { cartsRequest } from "../../api/auth/auth.cartRequest";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { ShoppingCart } from "@mui/icons-material";
 import Swal from "sweetalert2";
+import { fetchCarts } from "../../store/slices/cartSlices";
 
 const ProductDetail= () => {
   const [selectedColor, setSelectedColor] = useState<string>(""); // State for selected color
@@ -78,6 +79,7 @@ const ProductDetail= () => {
       if (result) {
         console.log("🚀 ~ handleAddCart ~ result:", result);
         navigate("/cart");
+        dispatch(fetchCarts(userId));
       } else {
         Swal.fire({
           icon: "error",
