@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import { Box, Typography, Grid, Button, IconButton } from "@mui/material";
 import { Facebook, YouTube, Instagram } from "@mui/icons-material";
@@ -11,7 +9,7 @@ const Footer = () => {
       sx={{
         width: "100%",
         maxWidth: "100%",
-        backgroundColor:"#092441",// "#608484",
+        backgroundColor: "#092441", // "#608484",
         color: "#fff",
         padding: "20px 150px",
         overflow: "hidden",
@@ -23,18 +21,16 @@ const Footer = () => {
         <Grid item xs={12} md={4}>
           <Typography variant="h6" sx={{ textAlign: "left" }}>
             <IconButton edge="start" color="inherit" aria-label="logo">
-              <img
-                src="https://shopdunk.com/images/thumbs/0027333_logo-shopdunk.png"
-                alt=""
-                style={{ height: "50px" }}
-              />
+              EXPLORE
             </IconButton>
           </Typography>
-          <Typography variant="body2" sx={{ textAlign: "left",color:'#C6C6C6' }}>
-            Năm 2020, ShopDunk trở thành đại lý ủy quyền của Apple. Chúng tôi
-            phát triển chuỗi cửa hàng tiêu chuẩn và Apple Mono Store nhằm mang
-            đến trải nghiệm tốt nhất về sản phẩm và dịch vụ của Apple cho người
-            dùng Việt Nam.
+          <Typography
+            variant="body2"
+            sx={{ textAlign: "left", color: "#C6C6C6" }}
+          >
+            In 2020, ShopDunk became an authorized reseller of Apple. We develop
+            a standard chain of stores and Apple Mono Store to bring to the best
+            experience of Apple products and services for people use Vietnam.
           </Typography>
           <Box
             sx={{
@@ -46,12 +42,22 @@ const Footer = () => {
               borderRadius: "10px",
             }}
           >
-            <Typography variant="body1" sx={{ fontWeight: "bold" }}>Tổng đài hỗ trợ:</Typography>
-            <Typography variant="body2" color="primary" sx={{ color: "black",padding:'10px 0 0 20px' }}>
-              -Mua hàng: <strong>1900.6626 (08:00 - 22:00)</strong>
+            <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+              Call Center Support:
             </Typography>
-            <Typography variant="body2" color="primary" sx={{ color: "black",padding:'0px 0 0 20px' }}>
-              -Bảo hành: <strong>1900.8036 (08:00 - 22:00)</strong>
+            <Typography
+              variant="body2"
+              color="primary"
+              sx={{ color: "black", padding: "10px 0 0 20px" }}
+            >
+              -Purchase: <strong>1900.6626 (08:00 - 22:00)</strong>
+            </Typography>
+            <Typography
+              variant="body2"
+              color="primary"
+              sx={{ color: "black", padding: "0px 0 0 20px" }}
+            >
+              -Warranty: <strong>1900.8036 (08:00 - 22:00)</strong>
             </Typography>
           </Box>
           <Box sx={{ display: "flex", marginTop: "10px" }}>
@@ -68,7 +74,7 @@ const Footer = () => {
         </Grid>
         <Grid item xs={12} md={2}>
           <Typography variant="h6" sx={{ textAlign: "left" }}>
-            Chính sách
+            Policy
           </Typography>
           <Typography
             variant="body2"
@@ -81,7 +87,7 @@ const Footer = () => {
               },
             }}
           >
-            Thu cũ đổi mới
+            Old Autumn Renewal
           </Typography>
           <Typography
             variant="body2"
@@ -94,7 +100,7 @@ const Footer = () => {
               },
             }}
           >
-            Giao hàng(ZaloPay)
+            Delivery(ZaloPay)
           </Typography>
           <Typography
             variant="body2"
@@ -107,7 +113,7 @@ const Footer = () => {
               },
             }}
           >
-            Hủy giao dịch
+            Cancel a transaction
           </Typography>
           <Typography
             variant="body2"
@@ -120,7 +126,7 @@ const Footer = () => {
               },
             }}
           >
-            Đổi trả
+            Returns
           </Typography>
           <Typography
             variant="body2"
@@ -133,7 +139,7 @@ const Footer = () => {
               },
             }}
           >
-            Bảo hành
+            Warranty
           </Typography>
           <Typography
             variant="body2"
@@ -146,7 +152,7 @@ const Footer = () => {
               },
             }}
           >
-            Dịch vụ
+            Service
           </Typography>
           <Typography
             variant="body2"
@@ -159,7 +165,7 @@ const Footer = () => {
               },
             }}
           >
-            Giải quyết khiếu nại
+            Complaint Resolution
           </Typography>
           <Typography
             variant="body2"
@@ -172,7 +178,7 @@ const Footer = () => {
               },
             }}
           >
-            Bảo mật thông tin
+            Information Security
           </Typography>
           <Typography
             variant="body2"
@@ -185,12 +191,12 @@ const Footer = () => {
               },
             }}
           >
-            Hướng dẫn thanh toán 
+            Payment Instructions
           </Typography>
         </Grid>
         <Grid item xs={12} md={2}>
           <Typography variant="h6" sx={{ textAlign: "left" }}>
-            Liên hệ
+            Contact
           </Typography>
           <Typography
             variant="body2"
@@ -203,7 +209,7 @@ const Footer = () => {
               },
             }}
           >
-            Tài khoản của tôi
+            My Account
           </Typography>
           <Typography
             variant="body2"
@@ -216,7 +222,7 @@ const Footer = () => {
               },
             }}
           >
-            Đơn đặt hàng
+            Orders
           </Typography>
           <Typography
             variant="body2"
@@ -229,7 +235,7 @@ const Footer = () => {
               },
             }}
           >
-            Hệ thống cửa hàng
+            Store system
           </Typography>
           <Typography
             variant="body2"
@@ -242,25 +248,24 @@ const Footer = () => {
               },
             }}
           >
-            Tìm Store trên Google Map
+            Find a Store on Google Map
           </Typography>
-          
         </Grid>
         <Grid item xs={12} md={4}>
           <Typography variant="h6" sx={{ textAlign: "left" }}>
-            Địa chỉ 
+            Address
           </Typography>
           <Typography
             variant="body2"
             sx={{ textAlign: "left", color: "rgba(255, 255, 255, 0.7)" }}
           >
-            Địa chỉ: 17 Hoàng Thúc Trâm,Hoà Cường Bắc, Hải Châu,Đà Nẵng
+            Address: 17 Hoang Thuc Tram, Hoa Cuong Bac, Hai Chau, Da Nang
           </Typography>
           <Typography
             variant="body2"
             sx={{ textAlign: "left", color: "rgba(255, 255, 255, 0.7)" }}
           >
-            Doanh nghiệp: <strong>0387023315</strong>
+            Enterprise: <strong>0387023315</strong>
           </Typography>
         </Grid>
       </Grid>
@@ -273,8 +278,9 @@ const Footer = () => {
       ></Box>
       <Box sx={{ textAlign: "center", marginTop: "20px" }}>
         <Typography variant="body2">
-          ©2024 Công ty Cổ Phần HESMAN Việt Nam GPDKKD: 0123445667 do Sở KH & ĐT
-          TP.Đà Nẵng cấp ngày 20/09/2024.
+          ©2024 HESMAN Vietnam Joint Stock Company Business License: 0123445667
+          by the Department of Planning and Investment Da Nang City issued on
+          20/09/2024.
         </Typography>
       </Box>
     </Box>
